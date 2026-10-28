@@ -1,592 +1,243 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#11100e">
-<title>باريستا | Barista</title>
+<meta name="description" content="Barista — specialty coffee, barista & bartender library">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Barista">
+<title>Barista | باريستا</title>
 <style>
 :root{--bg:#0d0c0b;--panel:#191613;--panel2:#211c17;--gold:#d3ad76;--cream:#f6efe4;--muted:#b6a895;--line:#413326;--red:#e07a6a;--green:#8fc79a}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:Tahoma,Arial,sans-serif;line-height:1.75}
-button,input,select,textarea{font:inherit}button{cursor:pointer}.layout{min-height:100vh;display:grid;grid-template-columns:225px 1fr}
-aside{background:#100f0d;border-left:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:16px;position:sticky;top:0;height:100vh;overflow-y:auto}
-.profile{text-align:center;padding:4px 8px 18px;border-bottom:1px solid var(--line)}.avatar{width:100px;height:100px;object-fit:cover;border-radius:50%;border:2px solid var(--gold);padding:3px}.profile h3{margin:8px 0 0;font-size:17px}.profile p{margin:0;color:var(--muted);font-size:12px}
-.nav{display:grid;gap:4px}.nav button{width:100%;text-align:right;border:1px solid transparent;background:transparent;color:var(--cream);padding:9px 12px;border-radius:10px}.nav button:hover,.nav button.active{background:#2b241b;border-color:#4b3925;color:var(--gold)}
-.quote{margin-top:auto;border:1px solid var(--line);padding:16px;border-radius:12px;text-align:center;color:var(--gold);font-size:13px}
-main{min-width:0}.hero{min-height:180px;padding:30px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:linear-gradient(100deg,#17110cdd,#17110c88),url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85') center/cover;border-bottom:1px solid var(--line)}
-.hero h1{font-family:Georgia,Tahoma,serif;font-size:clamp(36px,5vw,64px);line-height:1.2;margin:0;color:#e4c396}.hero p{margin:10px 0 0;color:#dfcdb5}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold)}
-.userchip{display:flex;align-items:center;gap:10px;background:#100f0dcc;border:1px solid var(--line);border-radius:99px;padding:6px 8px 6px 16px}.userchip .ava{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#20160c;display:grid;place-items:center;font-weight:bold}.userchip small{display:block;color:var(--muted);font-size:11px;line-height:1.2}.userchip b{font-size:14px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--cream);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.7;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.layout{min-height:100vh;display:grid;grid-template-columns:230px 1fr}
+aside{background:#100f0d;border-inline-end:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:14px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.profile{text-align:center;padding:4px 8px 16px;border-bottom:1px solid var(--line)}.avatar{width:100px;height:100px;object-fit:cover;border-radius:50%;border:2px solid var(--gold);padding:3px}.profile h3{margin:8px 0 0;font-size:17px}.profile p{margin:0;color:var(--muted);font-size:12px}
+.nav{display:grid;gap:3px}.nav button{width:100%;text-align:start;border:1px solid transparent;background:transparent;color:var(--cream);padding:8px 12px;border-radius:10px;display:flex;gap:10px;align-items:center}.nav button span.ic{width:20px;text-align:center;flex:none}.nav button:hover,.nav button.active{background:#2b241b;border-color:#4b3925;color:var(--gold)}
+.quote{margin-top:auto;border:1px solid var(--line);padding:14px;border-radius:12px;text-align:center;color:var(--gold);font-size:13px}
+main{min-width:0}.hero{min-height:170px;padding:26px 28px;padding-top:max(26px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:linear-gradient(100deg,#17110cdd,#17110c88),url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85') center/cover;border-bottom:1px solid var(--line)}
+.hero h1{font-family:Georgia,Tahoma,serif;font-size:clamp(34px,5vw,60px);line-height:1.2;margin:0;color:#e4c396}.hero p{margin:8px 0 0;color:#dfcdb5}.eyebrow{font-size:11px;letter-spacing:3px;color:var(--gold)}
+.hero-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.pill{border:1px solid var(--line);background:#100f0dcc;color:var(--cream);border-radius:99px;padding:8px 14px;font-size:13px}.saveState{font-size:12px;color:var(--muted);background:#100f0dcc;border:1px solid var(--line);border-radius:99px;padding:5px 11px}.saveState.err{color:var(--red);border-color:#6b3a31}.saveState.ok{color:var(--green)}
+.userchip{display:flex;align-items:center;gap:10px;background:#100f0dcc;border:1px solid var(--line);border-radius:99px;padding:5px 14px 5px 6px;color:inherit}[dir=rtl] .userchip{padding:5px 6px 5px 14px}.userchip .ava{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#20160c;display:grid;place-items:center;font-weight:bold;overflow:hidden}.userchip .ava img{width:100%;height:100%;object-fit:cover}.userchip small{display:block;color:var(--muted);font-size:11px;line-height:1.2}.userchip b{font-size:14px}
 .content{padding:22px;max-width:1500px;margin:auto}.welcome{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:18px}.welcome-banner{border:1px solid var(--line);border-radius:15px;padding:24px;background:linear-gradient(90deg,#15100be8,#15100b77),url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=1200&q=80') center/cover;min-height:150px}.welcome-banner h2{margin:0 0 6px}.welcome-banner p{margin:0;color:#e2d4c0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat,.card,.box{background:linear-gradient(145deg,#201b16,#151310);border:1px solid var(--line);border-radius:14px;padding:16px}.stat b{display:block;color:var(--gold);font-size:23px}.stat span{font-size:12px;color:var(--muted)}
-.tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 18px}.tabs button,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--cream);padding:9px 13px;border-radius:9px;white-space:nowrap}.tabs button.active,.btn.primary{background:var(--gold);color:#20160c;border-color:var(--gold);font-weight:bold}.btn.danger{border-color:#6b3a31;color:var(--red)}.btn:disabled{opacity:.5;cursor:default}
-.section{display:none}.section.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0 15px}.section h2{font-size:23px;color:var(--gold);margin:0}.section h3.sub{margin:26px 0 10px;color:var(--cream);font-size:18px;border-right:3px solid var(--gold);padding-right:10px;scroll-margin-top:14px}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:5px 0 18px}.tabs button,.btn{border:1px solid var(--line);background:var(--panel2);color:var(--cream);padding:9px 13px;border-radius:9px;white-space:nowrap}.tabs button.active,.btn.primary{background:var(--gold);color:#20160c;border-color:var(--gold);font-weight:bold}.btn.danger{border-color:#6b3a31;color:var(--red)}.btn.sm{font-size:12px;padding:6px 10px}
+.section{display:none}.section.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0 15px}.section h2{font-size:23px;color:var(--gold);margin:0}.section h3.sub{margin:26px 0 10px;color:var(--cream);font-size:18px;border-inline-start:3px solid var(--gold);padding-inline-start:10px;scroll-margin-top:14px}.box h3.bt{margin:0 0 4px;color:var(--gold);font-size:17px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.grid.r{grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}.card h3{margin:0 0 6px;color:var(--gold);font-size:17px}.card p{margin:0;color:var(--muted);font-size:14px;white-space:pre-wrap}.tag{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:2px 9px;color:var(--gold);font-size:11px;margin-bottom:8px}
 .kv{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.kv span{font-size:11.5px;background:#100f0d;border:1px solid var(--line);border-radius:7px;padding:2px 8px;color:var(--cream)}.kv span i{font-style:normal;color:var(--muted)}
-label{display:block;color:var(--muted);font-size:13px;margin:9px 0 4px}input,select,textarea{width:100%;padding:11px;background:#100f0d;color:var(--cream);border:1px solid var(--line);border-radius:9px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}textarea{min-height:82px;resize:vertical}input[type=checkbox]{width:auto;accent-color:var(--gold)}.check{display:inline-flex;align-items:center;gap:6px;color:var(--cream);font-size:13px;margin:0 0 0 14px;cursor:pointer}
-.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}.result{font-size:24px;color:var(--gold);font-weight:bold}.small{font-size:12px;color:var(--muted)}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.actions button{font-size:12px;padding:7px 10px}.empty{padding:25px;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted);grid-column:1/-1}footer{text-align:center;padding:25px;color:var(--muted);font-size:11px;letter-spacing:2px}
+label{display:block;color:var(--muted);font-size:13px;margin:9px 0 4px}input,select,textarea{width:100%;padding:10px 11px;background:#100f0d;color:var(--cream);border:1px solid var(--line);border-radius:9px}input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}textarea{min-height:82px;resize:vertical}input[type=checkbox]{width:auto;accent-color:var(--gold)}input[readonly]{opacity:.7}.check{display:inline-flex;align-items:center;gap:6px;color:var(--cream);font-size:13px;margin-inline-end:14px;cursor:pointer}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.result{font-size:24px;color:var(--gold);font-weight:bold;unicode-bidi:isolate}.small{font-size:12px;color:var(--muted)}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.actions button{font-size:12.5px;padding:7px 11px}.empty{padding:25px;border:1px dashed var(--line);border-radius:12px;text-align:center;color:var(--muted);grid-column:1/-1}footer{text-align:center;padding:25px;color:var(--muted);font-size:11px;letter-spacing:2px}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.chips button{border:1px solid var(--line);background:transparent;color:var(--muted);padding:5px 12px;border-radius:99px;font-size:13px}.chips button.on,.chips button:hover{border-color:var(--gold);color:var(--gold);background:#2b241b}
-/* recipe cards */
+hr.sep{border:0;border-top:1px solid var(--line);margin:14px 0}
 .rcard{padding:0;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}.rcard:hover{transform:translateY(-2px);border-color:#6a5136}.thumb{position:relative;aspect-ratio:4/3;background:#100f0d;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.ph{width:100%;height:100%;display:grid;place-items:center;font-size:54px;background:radial-gradient(circle at 30% 30%,#3a2c1d,#141110)}
-.fav{position:absolute;top:8px;left:8px;width:36px;height:36px;border-radius:50%;border:1px solid #ffffff33;background:#0d0c0bcc;color:var(--cream);font-size:18px;line-height:1;display:grid;place-items:center}.fav.on{color:#ff7d6b;border-color:#ff7d6b88}.badge{position:absolute;bottom:8px;right:8px;font-size:10.5px;background:#0d0c0bd9;border:1px solid var(--line);color:var(--gold);border-radius:99px;padding:1px 9px}.badge.mine{color:var(--green)}
-.rbody{padding:12px 14px 14px}.rbody h3{margin:0;font-size:16.5px}.rbody .en{font-size:12px;color:var(--muted);direction:ltr;text-align:right}
+.fav{position:absolute;top:8px;inset-inline-end:8px;width:36px;height:36px;border-radius:50%;border:1px solid #ffffff33;background:#0d0c0bcc;color:var(--cream);font-size:18px;line-height:1;display:grid;place-items:center}.fav.on{color:#ff7d6b;border-color:#ff7d6b88}.badge{position:absolute;bottom:8px;inset-inline-start:8px;font-size:10.5px;background:#0d0c0bd9;border:1px solid var(--line);color:var(--gold);border-radius:99px;padding:1px 9px}.badge.mine{color:var(--green)}
+.rbody{padding:12px 14px 14px}.rbody h3{margin:0;font-size:16.5px}.rbody .en{font-size:12px;color:var(--muted)}
 mark{background:#d3ad7655;color:var(--cream);border-radius:3px;padding:0 2px}
-/* tables */
-.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:right;vertical-align:middle}.tbl th{color:var(--gold);font-weight:normal;font-size:12.5px}.tbl td input{padding:7px 8px}.tbl .num{direction:ltr;text-align:left;white-space:nowrap}.scroll{overflow-x:auto}
-.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}.res-grid .card p{font-size:12.5px}.res-grid .result{font-size:21px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}
-.timer{font-size:52px;font-family:Georgia,monospace;color:var(--gold);text-align:center;direction:ltr;letter-spacing:2px}
-/* modal */
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto;z-index:50}.modal.open{display:flex}.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:760px;width:100%;overflow:hidden;position:relative}.sheet .hero-img{aspect-ratio:16/8;background:#100f0d}.sheet .hero-img img{width:100%;height:100%;object-fit:cover}.sheet .hero-img .ph{font-size:80px}.sheet-body{padding:20px 22px 24px}.sheet h2{margin:0;color:var(--gold)}.close{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;border:1px solid #ffffff44;background:#0d0c0bcc;color:var(--cream);font-size:20px;z-index:2}
-.steps{margin:0;padding-right:22px}.steps li{margin-bottom:6px}.extbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin:14px 0}.extbox div{background:#100f0d;border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center}.extbox b{display:block;color:var(--gold);font-size:17px;unicode-bidi:plaintext}.extbox span{font-size:11.5px;color:var(--muted)}
-.preview{margin-top:8px;display:flex;align-items:center;gap:10px}.preview img{width:110px;height:82px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}.gallery figure{margin:0;cursor:pointer}.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.gallery figcaption{font-size:11.5px;color:var(--muted);text-align:center}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--gold);color:#20160c;padding:10px 20px;border-radius:99px;font-weight:bold;opacity:0;transition:.25s;z-index:60;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%)}
-.trouble td:first-child{color:var(--cream);font-weight:bold}.note{background:#2b241b;border:1px solid #4b3925;border-radius:10px;padding:10px 14px;font-size:13px;color:#e2d4c0;margin-top:12px}
-@media(max-width:800px){.layout{grid-template-columns:1fr}aside{border-left:0;border-bottom:1px solid var(--line);padding:12px;position:static;height:auto}.profile{display:flex;align-items:center;gap:12px;text-align:right;padding:4px 8px 12px}.avatar{width:62px;height:62px}.profile p{margin-top:2px}.nav{display:flex;overflow-x:auto}.nav button{width:auto;white-space:nowrap}.quote{display:none}.hero{min-height:150px;padding:22px}.welcome{grid-template-columns:1fr}.content{padding:14px}.tabs{display:none}.cols2{grid-template-columns:1fr}.modal{padding:0}.sheet{border-radius:0;min-height:100vh}}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:start;vertical-align:middle}.tbl th{color:var(--gold);font-weight:normal;font-size:12.5px}.tbl td input,.tbl td select{padding:7px 8px}.tbl .num{white-space:nowrap;unicode-bidi:isolate}.scroll{overflow-x:auto}.tbl .diff{color:var(--gold);font-weight:bold}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}.res-grid .card{padding:12px 14px}.res-grid .card p{font-size:12.5px}.res-grid .result{font-size:20px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}
+.timer{font-size:48px;font-family:Georgia,monospace;color:var(--gold);text-align:center;direction:ltr;letter-spacing:2px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto;z-index:50}.modal.open{display:flex}.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:760px;width:100%;overflow:hidden;position:relative}.sheet .hero-img{aspect-ratio:16/8;background:#100f0d}.sheet .hero-img img{width:100%;height:100%;object-fit:cover}.sheet .hero-img .ph{font-size:80px}.sheet-body{padding:20px 22px 24px}.sheet h2{margin:0;color:var(--gold)}.close{position:absolute;top:12px;inset-inline-end:12px;width:38px;height:38px;border-radius:50%;border:1px solid #ffffff44;background:#0d0c0bcc;color:var(--cream);font-size:20px;z-index:2}
+.steps{margin:0;padding-inline-start:22px}.steps li{margin-bottom:6px}.extbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin:14px 0}.extbox div{background:#100f0d;border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:center}.extbox b{display:block;color:var(--gold);font-size:17px;unicode-bidi:plaintext}.extbox span{font-size:11.5px;color:var(--muted)}
+.preview{margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.preview img{width:110px;height:82px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}.gallery figure{margin:0;cursor:pointer;position:relative}.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.gallery figcaption{font-size:11.5px;color:var(--muted);text-align:center}
+.files{display:grid;gap:6px;margin-top:8px}.files a,.files div{display:flex;align-items:center;gap:8px;justify-content:space-between;background:#100f0d;border:1px solid var(--line);border-radius:9px;padding:7px 10px;color:var(--cream);text-decoration:none;font-size:13px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(30px);background:var(--gold);color:#20160c;padding:10px 20px;border-radius:99px;font-weight:bold;opacity:0;transition:.25s;z-index:80;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%)}
+.note{background:#2b241b;border:1px solid #4b3925;border-radius:10px;padding:10px 14px;font-size:13px;color:#e2d4c0;margin-top:12px}.trouble td:first-child{color:var(--cream);font-weight:bold}
+.course{margin-bottom:18px}.course>h4{margin:0 0 8px;color:var(--gold);font-size:16px}
+.lock{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 50% 30%,#2a2015,#0d0c0b);display:none;align-items:center;justify-content:center;padding:20px}.lock.open{display:flex}.lock .box{max-width:360px;width:100%;text-align:center}.lock img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);padding:3px}
+.installsteps{margin:6px 0 0;padding-inline-start:20px;font-size:13.5px;color:#e2d4c0}
+@media(max-width:800px){.layout{grid-template-columns:1fr}aside{border-inline-end:0;border-bottom:1px solid var(--line);padding:12px;position:static;height:auto;padding-top:max(12px,env(safe-area-inset-top))}.profile{display:flex;align-items:center;gap:12px;text-align:start;padding:4px 8px 12px}.avatar{width:58px;height:58px}.profile p{margin-top:2px}.nav{display:flex;overflow-x:auto}.nav button{width:auto;white-space:nowrap}.quote{display:none}.hero{min-height:140px;padding:20px}.welcome{grid-template-columns:1fr}.content{padding:14px}.tabs{display:none}.cols2{grid-template-columns:1fr}.modal{padding:0}.sheet{border-radius:0;min-height:100vh}}
 </style>
 </head>
 <body>
 <div class="layout">
 <aside>
-  <div class="profile"><img class="avatar" src="profile.jpg" alt="صورة الباريستا"><div><h3>Barista</h3><p>Specialty Coffee & Drinks</p></div></div>
-  <nav class="nav" id="sideNav">
-    <button class="active" data-tab="home">⌂　الرئيسية</button>
-    <button data-tab="library">📖　مكتبة الوصفات</button>
-    <button data-tab="ency">◉　موسوعة القهوة</button>
-    <button data-tab="tools">⚖　أدوات احترافية</button>
-    <button data-tab="cost">▦　الحاسبة المالية</button>
-    <button data-tab="recipes">▤　ريسيبياتي</button>
-    <button data-tab="favs">♥　المفضلة</button>
-    <button data-tab="search">⌕　بحث متقدم</button>
-    <button data-tab="learn">✧　التعلم والتدريب</button>
-    <button data-tab="notes">✎　ملاحظاتي</button>
-    <button data-tab="account">👤　حسابي</button>
-  </nav>
+  <div class="profile"><img class="avatar" id="sideAvatar" src="profile.jpg" alt=""><div><h3 id="sideName">Barista</h3><p id="sideTag">Specialty Coffee & Drinks</p></div></div>
+  <nav class="nav" id="sideNav"></nav>
   <div class="quote">“Good coffee is not just a drink — it's a craft.”</div>
 </aside>
 <main>
-<header class="hero"><div><div class="eyebrow">SPECIALTY COFFEE · BARISTA · BARTENDER</div><h1>باريستا | Barista</h1><p>قهوة مختصة، وصفاتك الخاصة، ومسيرتك في عالم المشروبات.</p></div>
-<button class="userchip" data-tab="account" style="color:inherit"><span class="ava" id="chipAva">ض</span><span style="text-align:right"><small id="chipHint">تسجيل الدخول</small><b id="chipName">ضيف</b></span></button></header>
+<header class="hero"><div><div class="eyebrow">SPECIALTY COFFEE · BARISTA · BARTENDER</div><h1>Barista | باريستا</h1><p data-i="heroSub"></p></div>
+<div class="hero-tools"><span class="saveState" id="saveState"></span><button class="pill" id="langBtn"></button><button class="userchip" data-tab="account"><span class="ava" id="chipAva"></span><span style="text-align:start"><small id="chipHint"></small><b id="chipName"></b></span></button></div></header>
 <div class="content">
 <div class="welcome">
-  <div class="welcome-banner"><div class="eyebrow">YOUR PERSONAL LIBRARY</div><h2 id="welcomeTitle">مرحبًا بك في مكتبتك الشخصية</h2><p>اكتشف البن، طوّر مهاراتك، واحفظ ريسيبياتك بالطريقة التي تناسبك.</p></div>
-  <div class="stats"><div class="stat"><b id="libCount">0</b><span>وصفة جاهزة في المكتبة</span></div><div class="stat"><b id="recipeCount">0</b><span>من وصفاتي المحفوظة</span></div><div class="stat"><b id="favCount">0</b><span>في المفضلة</span></div><div class="stat"><b id="noteCount">0</b><span>ملاحظات وتجارب</span></div></div>
+  <div class="welcome-banner"><div class="eyebrow">YOUR PERSONAL LIBRARY</div><h2 id="welcomeTitle"></h2><p data-i="welcomeSub"></p></div>
+  <div class="stats"><div class="stat"><b id="libCount">0</b><span data-i="stLib"></span></div><div class="stat"><b id="recipeCount">0</b><span data-i="stMine"></span></div><div class="stat"><b id="favCount">0</b><span data-i="stFav"></span></div><div class="stat"><b id="lessonCount">0</b><span data-i="stLessons"></span></div></div>
 </div>
-<div class="tabs" id="topTabs">
-<button class="active" data-tab="home">الرئيسية</button><button data-tab="library">المكتبة</button><button data-tab="ency">الموسوعة</button><button data-tab="tools">الأدوات</button><button data-tab="cost">الحاسبة المالية</button><button data-tab="recipes">ريسيبياتي</button><button data-tab="favs">المفضلة</button><button data-tab="search">البحث</button><button data-tab="learn">التدريب</button><button data-tab="notes">ملاحظاتي</button><button data-tab="account">حسابي</button>
-</div>
+<div class="tabs" id="topTabs"></div>
 
-<!-- HOME -->
 <section id="home" class="section active">
-<div class="section-head"><h2>أقسام المكتبة</h2><input id="globalSearch" placeholder="ابحث عن وصفة أو مكوّن أو معلومة..." style="max-width:330px"></div>
+<div class="section-head"><h2 data-i="secHome"></h2><input id="globalSearch" data-ip="phGlobal" style="max-width:330px"></div>
 <div class="grid" id="homeCards"></div>
-<h3 class="sub">وصفات مختارة</h3><div class="grid r" id="homeFeatured"></div>
+<h3 class="sub" data-i="featured"></h3><div class="grid r" id="homeFeatured"></div>
 </section>
 
-<!-- LIBRARY -->
 <section id="library" class="section">
-<div class="section-head"><h2>مكتبة الوصفات</h2><input id="libSearch" placeholder="ابحث في الوصفات والمكونات..." style="max-width:310px"></div>
-<p class="small" style="margin-top:-6px">صور المشروبات، المقادير بالقياس الدقيق، خطوات التحضير، وأزمنة الاستخلاص. اضغط على أي وصفة لعرض التفاصيل.</p>
+<div class="section-head"><h2 data-i="navLibrary"></h2><input id="libSearch" data-ip="phLib" style="max-width:310px"></div>
+<p class="small" style="margin-top:-6px" data-i="libIntro"></p>
 <div class="chips" id="libFilters"></div>
 <div class="grid r" id="libGrid"></div>
 </section>
 
-<!-- ENCYCLOPEDIA -->
 <section id="ency" class="section">
-<div class="section-head"><h2>موسوعة القهوة</h2><input id="encySearch" placeholder="ابحث في الموسوعة..." style="max-width:310px"></div>
-<div class="chips" id="encyJump"></div>
-<div id="encyBody"></div>
+<div class="section-head"><h2 data-i="navEncy"></h2><input id="encySearch" data-ip="phEncy" style="max-width:310px"></div>
+<div class="chips" id="encyJump"></div><div id="encyBody"></div>
 </section>
 
-<!-- TOOLS -->
+<section id="equip" class="section">
+<div class="section-head"><h2 data-i="navEquip"></h2><input id="equipSearch" data-ip="phEquip" style="max-width:310px"></div>
+<div class="chips" id="equipJump"></div><div id="equipBody"></div>
+</section>
+
 <section id="tools" class="section">
-<div class="section-head"><h2>أدوات احترافية</h2></div>
+<div class="section-head"><h2 data-i="navTools"></h2></div>
+<div class="chips" id="toolJump"></div>
+<h3 class="sub" id="t-shot" data-i="tShot"></h3>
 <div class="cols2">
- <div class="box"><h3 style="margin:0 0 4px;color:var(--gold)">تحويل الوحدات</h3>
-  <div class="formgrid"><div><label>النوع</label><select id="ucCat"><option value="vol">الحجم</option><option value="wt">الوزن</option><option value="temp">الحرارة</option></select></div><div><label>القيمة</label><input id="ucVal" type="number" value="1" step="any"></div></div>
-  <div class="formgrid"><div><label>من</label><select id="ucFrom"></select></div><div><label>إلى</label><select id="ucTo"></select></div></div>
-  <p style="margin:12px 0 0">النتيجة: <span class="result" id="ucOut" style="unicode-bidi:isolate">—</span></p>
-  <div class="scroll" style="margin-top:8px"><table class="tbl" id="ucRef"></table></div>
+ <div class="box">
+  <div class="formgrid"><div><label data-i="lDose"></label><input id="shDose" type="number" value="18" step="any" min="0"></div><div><label data-i="lYield"></label><input id="shYield" type="number" value="36" step="any" min="0"></div><div><label data-i="lTimeS"></label><input id="shTime" type="number" value="28" step="any" min="0"></div></div>
+  <div class="formgrid"><div><label data-i="lTempC"></label><input id="shTemp" type="number" value="93" step="any"></div><div><label data-i="lPressure"></label><input id="shPress" type="number" value="9" step="any"></div><div><label data-i="lGrindSet"></label><input id="shGrind" placeholder="12"></div></div>
+  <label data-i="lCoffeeName"></label><input id="shCoffee" data-ip="phCoffeeName">
+  <label data-i="lTaste"></label><input id="shNotes" data-ip="phTaste">
+  <div class="res-grid"><div class="card"><p data-i="rRatio"></p><div class="result" id="shRatio">—</div><p id="shStyle"></p></div><div class="card"><p data-i="rFlow"></p><div class="result" id="shFlow">—</div><p data-i="rFlowUnit"></p></div></div>
+  <div class="actions"><button class="btn primary" id="saveShot" data-i="bSaveShot"></button></div>
  </div>
- <div class="box"><h3 style="margin:0 0 4px;color:var(--gold)">نسبة القهوة إلى الماء</h3>
-  <div class="formgrid"><div><label>كمية البن (غرام)</label><input id="dose" type="number" value="20" min="0" step="any"></div><div><label>النسبة (15 تعني 1:15)</label><input id="ratio" type="number" value="15" min="1" step="any"></div></div>
-  <p style="margin:10px 0 0">الماء المقترح: <span class="result" id="water">300</span> غرام</p>
-  <div class="chips" style="margin:8px 0 0" id="ratioPresets"></div>
-  <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
-  <div class="formgrid"><div><label>كمية الماء المتاحة (غرام)</label><input id="water2" type="number" value="500" min="0" step="any"></div><div><label>النسبة</label><input id="ratio2" type="number" value="16" min="1" step="any"></div></div>
-  <p style="margin:10px 0 0">البن المطلوب: <span class="result" id="dose2">31.3</span> غرام</p>
-  <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
-  <b style="color:var(--gold);font-size:14px">نسبة الإسبريسو (Brew Ratio)</b>
-  <div class="formgrid"><div><label>الجرعة (غ)</label><input id="eDose" type="number" value="18" step="any"></div><div><label>الناتج في الكوب (غ)</label><input id="eYield" type="number" value="36" step="any"></div></div>
-  <p style="margin:10px 0 0">النسبة: <span class="result" id="eRatio">1:2.0</span> <span class="small" id="eStyle"></span></p>
- </div>
-</div>
-<div class="cols2" style="margin-top:14px">
- <div class="box"><h3 style="margin:0 0 4px;color:var(--gold)">تكبير وتصغير الوصفة</h3>
-  <p class="small" style="margin:0">اختر وصفة ثم حدّد عدد الحصص الجديد، أو اكتب نسبة مباشرة (مثال 0.5 أو 2).</p>
-  <label>الوصفة</label><select id="scRecipe"></select>
-  <div class="formgrid"><div><label>الحصص الأصلية</label><input id="scBase" type="number" value="1" min="0.1" step="any"></div><div><label>الحصص المطلوبة</label><input id="scTarget" type="number" value="4" min="0.1" step="any"></div><div><label>معامل التكبير</label><input id="scFactor" type="number" value="4" min="0.01" step="any"></div></div>
-  <div id="scCustomWrap" style="display:none"><label>المقادير (سطر لكل مكوّن)</label><textarea id="scCustom" placeholder="إسبريسو 36 غ&#10;حليب 200 مل"></textarea></div>
-  <div class="scroll"><table class="tbl" id="scOut" style="margin-top:12px"></table></div>
- </div>
- <div class="box"><h3 style="margin:0 0 4px;color:var(--gold)">مؤقت الاستخلاص</h3>
-  <p class="small" style="margin:0">ابدأ المؤقت مع بداية الاستخلاص وأوقفه عند الوصول للناتج المطلوب.</p>
+ <div class="box"><h3 class="bt" data-i="tTimer"></h3><p class="small" style="margin:0" data-i="timerHint"></p>
   <div class="timer" id="tmDisp">00:00.0</div>
-  <div class="actions" style="justify-content:center"><button class="btn primary" id="tmStart">ابدأ</button><button class="btn" id="tmLap">تسجيل</button><button class="btn" id="tmReset">تصفير</button></div>
-  <div id="tmLaps" class="small" style="margin-top:10px;text-align:center"></div>
-  <div class="note">المرجع الشائع للإسبريسو: 25–30 ثانية من بدء الضخ. الطعم هو الحكم النهائي.</div>
+  <div class="actions" style="justify-content:center"><button class="btn primary" id="tmStart" data-i="bStart"></button><button class="btn" id="tmUse" data-i="bUseTime"></button><button class="btn" id="tmReset" data-i="bReset"></button></div>
+  <div class="note" data-i="timerNote"></div>
  </div>
 </div>
-</section>
+<div class="box" style="margin-top:12px"><div class="section-head" style="margin:0 0 6px"><h3 class="bt" data-i="shotLog"></h3><span class="small" data-i="shotLogHint"></span></div><div class="scroll"><table class="tbl" id="shotLog"></table></div><div id="shotCompare"></div></div>
 
-<!-- COST -->
-<section id="cost" class="section">
-<div class="section-head"><h2>الحاسبة المالية</h2></div>
-<div class="box"><p class="small" style="margin-top:0">أدخل سعر شراء كل مكوّن وحجم العبوة والكمية المستخدمة في كوب واحد، وسيُحسب نصيب الكوب تلقائيًا (بالريال السعودي).</p>
-<div class="scroll"><table class="tbl"><thead><tr><th>المكوّن</th><th>سعر العبوة (ر.س)</th><th>حجم العبوة</th><th>المستخدم في الكوب</th><th>الوحدة</th><th>تكلفة الكوب</th><th></th></tr></thead><tbody id="costRows"></tbody></table></div>
-<div class="actions"><button class="btn" id="addCostRow">+ إضافة مكوّن</button><button class="btn" id="resetCost">إعادة الافتراضي</button></div>
-<div class="formgrid" style="margin-top:12px"><div><label>تكاليف تشغيل لكل كوب (رواتب، إيجار، كهرباء)</label><input id="opCost" type="number" min="0" step=".01" value="2"></div><div><label>سعر البيع (ر.س)</label><input id="sellPrice" type="number" min="0" step=".01" value="18"></div><div><label>نسبة التكلفة المستهدفة %</label><input id="targetPct" type="number" min="1" max="100" step="1" value="30"></div></div>
-<label class="check" style="margin-top:10px"><input type="checkbox" id="vatIncl" checked> سعر البيع يشمل ضريبة القيمة المضافة 15%</label>
-<div class="res-grid">
- <div class="card"><p>تكلفة المكونات</p><div class="result" id="rIng">—</div></div>
- <div class="card"><p>التكلفة الكاملة للكوب</p><div class="result" id="rTotal">—</div></div>
- <div class="card"><p>صافي سعر البيع (بدون ضريبة)</p><div class="result" id="rNet">—</div></div>
- <div class="card"><p>صافي الربح للكوب</p><div class="result" id="rProfit">—</div></div>
- <div class="card"><p>هامش الربح</p><div class="result" id="rMargin">—</div></div>
- <div class="card"><p>نسبة تكلفة المكونات</p><div class="result" id="rPct">—</div></div>
- <div class="card"><p>سعر البيع المقترح</p><div class="result" id="rSuggest">—</div></div>
+<h3 class="sub" id="t-ratio" data-i="tRatio"></h3>
+<div class="cols2">
+ <div class="box">
+  <div class="formgrid"><div><label data-i="lCoffeeG"></label><input id="dose" type="number" value="20" min="0" step="any"></div><div><label data-i="lRatioN"></label><input id="ratio" type="number" value="15" min="1" step="any"></div></div>
+  <p style="margin:10px 0 0"><span data-i="rWater"></span> <span class="result" id="water">300</span> <span data-i="uG"></span></p>
+  <div class="chips" style="margin:8px 0 0" id="ratioPresets"></div>
+  <hr class="sep">
+  <div class="formgrid"><div><label data-i="lWaterAvail"></label><input id="water2" type="number" value="500" min="0" step="any"></div><div><label data-i="lRatioN"></label><input id="ratio2" type="number" value="16" min="1" step="any"></div></div>
+  <p style="margin:10px 0 0"><span data-i="rCoffeeNeed"></span> <span class="result" id="dose2">31.3</span> <span data-i="uG"></span></p>
+ </div>
+ <div class="box"><h3 class="bt" data-i="tBatch"></h3><p class="small" style="margin:0" data-i="batchHint"></p>
+  <div class="formgrid"><div><label data-i="lBatchL"></label><input id="bVol" type="number" value="3" min="0" step="any"></div><div><label data-i="lRatioN"></label><input id="bRatio" type="number" value="16" min="3" step="any"></div><div><label data-i="lCupMl"></label><input id="bCup" type="number" value="250" min="1" step="any"></div></div>
+  <div class="formgrid"><div><label data-i="lAbsorb"></label><input id="bAbs" type="number" value="2" min="0" step="any"></div></div>
+  <div class="res-grid"><div class="card"><p data-i="rBatchCoffee"></p><div class="result" id="bCoffee" dir="ltr">—</div></div><div class="card"><p data-i="rBatchWater"></p><div class="result" id="bWater" dir="ltr">—</div></div><div class="card"><p data-i="rBatchCups"></p><div class="result" id="bCups">—</div></div></div>
+ </div>
 </div>
-<div class="formgrid" style="margin-top:14px;align-items:end"><div><label>حفظ هذه الحسبة باسم</label><input id="costName" placeholder="مثال: سبانش لاتيه 12 أونصة"></div><div><button class="btn primary" id="saveCost" style="width:100%">حفظ الحسبة</button></div></div>
+
+<h3 class="sub" id="t-scale" data-i="tScale"></h3>
+<div class="box"><p class="small" style="margin:0" data-i="scaleHint"></p>
+  <label data-i="lRecipe"></label><select id="scRecipe"></select>
+  <div class="formgrid"><div><label data-i="lBaseServ"></label><input id="scBase" type="number" value="1" min="0.1" step="any"></div><div><label data-i="lTargetServ"></label><input id="scTarget" type="number" value="4" min="0.1" step="any"></div><div><label data-i="lFactor"></label><input id="scFactor" type="number" value="4" min="0.01" step="any"></div><div><label data-i="lOutUnit"></label><select id="scUnit"></select></div></div>
+  <div id="scCustomWrap" style="display:none"><label data-i="lCustomIng"></label><textarea id="scCustom" data-ip="phIngLines"></textarea></div>
+  <div class="scroll"><table class="tbl" id="scOut" style="margin-top:12px"></table></div>
 </div>
-<h3 class="sub">الحسبات المحفوظة</h3><div class="grid" id="costList"></div>
-</section>
 
-<!-- MY RECIPES -->
-<section id="recipes" class="section">
-<div class="section-head"><h2>ريسيبياتي الخاصة</h2></div>
-<div class="box"><p class="small" style="margin-top:0" id="saveHint">أضف وصفاتك بنفسك مع صورة المشروب وبيانات الاستخلاص.</p>
-<form id="recipeForm"><input type="hidden" id="editId">
-<div class="formgrid"><div><label>اسم المشروب</label><input id="rname" required placeholder="مثال: آيس لاتيه خاص"></div><div><label>التصنيف</label><select id="rtype"></select></div><div><label>حجم الكوب (مل)</label><input id="rsize" type="number" min="0" placeholder="350"></div></div>
-<div class="formgrid"><div><label>الجرعة (غ)</label><input id="rdose" type="number" min="0" step="any" placeholder="18"></div><div><label>الناتج (غ / مل)</label><input id="ryield" type="number" min="0" step="any" placeholder="36"></div><div><label>زمن الاستخلاص</label><input id="rtime" placeholder="28 ث"></div><div><label>الحرارة</label><input id="rtemp" placeholder="93°م"></div><div><label>درجة الطحن</label><input id="rgrind" placeholder="ناعم"></div></div>
-<label>صورة المشروب</label><input id="rimg" type="file" accept="image/*">
-<div class="preview" id="rimgPrev" style="display:none"><img alt=""><button class="btn danger" type="button" id="rimgDel">إزالة الصورة</button></div>
-<label>المقادير والكميات (سطر لكل مكوّن)</label><textarea id="ring" required placeholder="إسبريسو 36 غ&#10;حليب 180 مل&#10;ثلج 150 غ"></textarea>
-<label>طريقة التحضير (سطر لكل خطوة)</label><textarea id="rsteps" placeholder="اكتب الخطوات بالتفصيل"></textarea><label>ملاحظاتك</label><textarea id="rnotes" placeholder="الطعم، الطحن، الوقت، التعديلات..."></textarea>
-<div class="actions"><button class="btn primary" type="submit" id="saveRecipeBtn">حفظ الوصفة</button><button class="btn" type="button" id="cancelEdit">إلغاء التعديل</button></div></form></div>
-<h3 class="sub">الوصفات المحفوظة</h3><div id="myRecipes" class="grid r"></div>
-<h3 class="sub">صوري المحفوظة</h3><div id="gallery" class="gallery"></div>
-</section>
-
-<!-- FAVS -->
-<section id="favs" class="section"><div class="section-head"><h2>المفضلة</h2></div><div class="grid r" id="favGrid"></div></section>
-
-<!-- SEARCH -->
-<section id="search" class="section">
-<div class="section-head"><h2>بحث متقدم</h2></div>
+<h3 class="sub" id="t-units" data-i="tUnits"></h3>
 <div class="box">
-<div class="formgrid"><div style="grid-column:span 2"><label>كلمة البحث</label><input id="sq" placeholder="مثال: حليب، كراميل، إثيوبيا، 18 غ..."></div><div><label>نوع المشروب</label><select id="sType"></select></div></div>
-<div style="margin-top:12px"><label class="check"><input type="checkbox" class="sScope" value="lib" checked> وصفات المكتبة</label><label class="check"><input type="checkbox" class="sScope" value="mine" checked> وصفاتي</label><label class="check"><input type="checkbox" class="sScope" value="ency" checked> الموسوعة</label><label class="check"><input type="checkbox" class="sScope" value="notes" checked> ملاحظاتي</label><label class="check"><input type="checkbox" id="sFav"> المفضلة فقط</label></div>
-<p class="small" style="margin:10px 0 0">يبحث في الأسماء والمقادير والخطوات والملاحظات. يمكنك كتابة أكثر من كلمة.</p>
+  <div class="formgrid"><div><label data-i="lKind"></label><select id="ucCat"></select></div><div><label data-i="lValue"></label><input id="ucVal" type="number" value="1" step="any"></div><div><label data-i="lFrom"></label><select id="ucFrom"></select></div><div><label data-i="lTo"></label><select id="ucTo"></select></div></div>
+  <p style="margin:12px 0 0"><span data-i="rResult"></span> <span class="result" id="ucOut">—</span></p>
+  <div class="scroll" style="margin-top:8px"><table class="tbl" id="ucRef"></table></div>
+</div>
+</section>
+
+<section id="cost" class="section">
+<div class="section-head"><h2 data-i="navCost"></h2></div>
+<div class="chips" id="costJump"></div>
+<h3 class="sub" id="c-pantry" data-i="cPantry"></h3>
+<div class="box"><p class="small" style="margin-top:0" data-i="pantryHint"></p>
+<div class="scroll"><table class="tbl"><thead><tr><th data-i="thIng"></th><th data-i="thPackPrice"></th><th data-i="thPackSize"></th><th data-i="thUnit"></th><th data-i="thUnitPrice"></th><th data-i="thUpdated"></th><th></th></tr></thead><tbody id="pantryRows"></tbody></table></div>
+<div class="actions"><button class="btn" id="addPantry" data-i="bAddIng"></button><button class="btn" id="seedPantry" data-i="bSeedPantry"></button></div></div>
+
+<h3 class="sub" id="c-drink" data-i="cDrink"></h3>
+<div class="box"><p class="small" style="margin-top:0" data-i="drinkHint"></p>
+<div class="scroll"><table class="tbl"><thead><tr><th data-i="thIng"></th><th data-i="thPackPrice"></th><th data-i="thPackSize"></th><th data-i="thUsed"></th><th data-i="thUnit"></th><th data-i="thCupCost"></th><th></th></tr></thead><tbody id="costRows"></tbody></table></div>
+<div class="actions"><button class="btn" id="addCostRow" data-i="bAddRow"></button><button class="btn" id="resetCost" data-i="bResetDefault"></button></div></div>
+
+<h3 class="sub" id="c-profit" data-i="cProfit"></h3>
+<div class="box">
+<div class="formgrid"><div><label data-i="lSell"></label><input id="sellPrice" type="number" min="0" step=".01" value="18"></div><div><label data-i="lOpCup"></label><input id="opCost" type="number" min="0" step=".01" value="2"></div><div><label data-i="lTargetPct"></label><input id="targetPct" type="number" min="1" max="100" step="1" value="30"></div></div>
+<label class="check" style="margin-top:10px"><input type="checkbox" id="vatIncl" checked> <span data-i="lVat"></span></label>
+<div class="res-grid">
+ <div class="card"><p data-i="rCogs"></p><div class="result" id="rIng">—</div></div>
+ <div class="card"><p data-i="rTotalCup"></p><div class="result" id="rTotal">—</div></div>
+ <div class="card"><p data-i="rNet"></p><div class="result" id="rNet">—</div></div>
+ <div class="card"><p data-i="rGross"></p><div class="result" id="rGross">—</div></div>
+ <div class="card"><p data-i="rNetProfit"></p><div class="result" id="rProfit">—</div></div>
+ <div class="card"><p data-i="rGrossMargin"></p><div class="result" id="rGMargin">—</div></div>
+ <div class="card"><p data-i="rNetMargin"></p><div class="result" id="rMargin">—</div></div>
+ <div class="card"><p data-i="rCogsPct"></p><div class="result" id="rPct">—</div></div>
+ <div class="card"><p id="rSuggestLbl"></p><div class="result" id="rSuggest">—</div></div>
+</div>
+<div class="note" data-i="grossNetNote"></div>
+<hr class="sep"><b style="color:var(--gold)" data-i="projTitle"></b>
+<div class="formgrid"><div><label data-i="lCupsDay"></label><input id="pCups" type="number" min="0" value="80"></div><div><label data-i="lDaysMonth"></label><input id="pDays" type="number" min="0" max="31" value="26"></div><div><label data-i="lFixedMonth"></label><input id="pFixed" type="number" min="0" step="any" value="0"></div></div>
+<div class="scroll"><table class="tbl" id="projTbl" style="margin-top:10px"></table></div>
+<div class="formgrid" style="margin-top:14px;align-items:end"><div><label data-i="lSaveCalc"></label><input id="costName" data-ip="phCalcName"></div><div><button class="btn primary" id="saveCost" style="width:100%" data-i="bSaveCalc"></button></div></div>
+</div>
+<h3 class="sub" data-i="savedCalcs"></h3><div class="grid" id="costList"></div>
+</section>
+
+<section id="recipes" class="section">
+<div class="section-head"><h2 data-i="navRecipes"></h2></div>
+<div class="box"><p class="small" style="margin-top:0" id="saveHint"></p>
+<form id="recipeForm"><input type="hidden" id="editId">
+<div class="formgrid"><div><label data-i="lDrinkName"></label><input id="rname" required data-ip="phDrinkName"></div><div><label data-i="lType"></label><select id="rtype"></select></div><div><label data-i="lCupSize"></label><input id="rsize" type="number" min="0" placeholder="350"></div></div>
+<div class="formgrid"><div><label data-i="lDose"></label><input id="rdose" type="number" min="0" step="any" placeholder="18"></div><div><label data-i="lYield"></label><input id="ryield" type="number" min="0" step="any" placeholder="36"></div><div><label data-i="lExtTime"></label><input id="rtime" placeholder="28"></div><div><label data-i="lTemp"></label><input id="rtemp" placeholder="93°C"></div><div><label data-i="lPressure"></label><input id="rpress" placeholder="9 bar"></div><div><label data-i="lGrind"></label><input id="rgrind"></div></div>
+<label data-i="lPhoto"></label><input id="rimg" type="file" accept="image/*">
+<div class="preview" id="rimgPrev" style="display:none"><img alt=""><button class="btn danger sm" type="button" id="rimgDel" data-i="bRemovePhoto"></button></div>
+<label data-i="lIngLines"></label><textarea id="ring" required data-ip="phIngLines"></textarea>
+<label data-i="lStepLines"></label><textarea id="rsteps"></textarea><label data-i="lNotes"></label><textarea id="rnotes" data-ip="phNotes"></textarea>
+<div class="actions"><button class="btn primary" type="submit" id="saveRecipeBtn" data-i="bSaveRecipe"></button><button class="btn" type="button" id="cancelEdit" data-i="bCancelEdit"></button></div></form></div>
+<h3 class="sub" data-i="savedRecipes"></h3><div id="myRecipes" class="grid r"></div>
+<h3 class="sub" data-i="myPhotos"></h3><div id="gallery" class="gallery"></div>
+</section>
+
+<section id="favs" class="section"><div class="section-head"><h2 data-i="navFavs"></h2></div><div class="grid r" id="favGrid"></div></section>
+
+<section id="search" class="section">
+<div class="section-head"><h2 data-i="navSearch"></h2></div>
+<div class="box">
+<div class="formgrid"><div style="grid-column:1/-1"><label data-i="lQuery"></label><input id="sq" data-ip="phSearch"></div></div>
+<div class="formgrid"><div><label data-i="lSection"></label><select id="sScope"></select></div><div><label data-i="lDrinkType"></label><select id="sType"></select></div><div><label data-i="lSort"></label><select id="sSort"></select></div></div>
+<label class="check" style="margin-top:10px"><input type="checkbox" id="sFav"> <span data-i="lFavOnly"></span></label>
+<p class="small" style="margin:8px 0 0" data-i="searchHint"></p>
 </div>
 <div id="sResults" style="margin-top:14px"></div>
 </section>
 
-<!-- LEARN -->
-<section id="learn" class="section"><div class="section-head"><h2>التعلم والتدريب</h2></div><div class="grid" id="learnCards"></div></section>
+<section id="learn" class="section">
+<div class="section-head"><h2 data-i="navLearn"></h2></div>
+<div class="box"><h3 class="bt" id="lessonFormTitle" data-i="addLesson"></h3>
+<form id="lessonForm"><input type="hidden" id="lsId">
+<div class="formgrid"><div><label data-i="lCourse"></label><input id="lsCourse" list="courseList" data-ip="phCourse"><datalist id="courseList"></datalist></div><div><label data-i="lLessonTitle"></label><input id="lsTitle" required></div><div><label data-i="lLevel"></label><select id="lsLevel"></select></div><div><label data-i="lCategory"></label><select id="lsCat"></select></div></div>
+<label data-i="lContent"></label><textarea id="lsContent" style="min-height:140px"></textarea>
+<div class="formgrid"><div><label data-i="lImages"></label><input id="lsImgs" type="file" accept="image/*" multiple></div><div><label data-i="lFiles"></label><input id="lsFiles" type="file" multiple></div></div>
+<div class="preview" id="lsPrev"></div>
+<div class="actions"><button class="btn primary" type="submit" id="lsSave" data-i="bSaveLesson"></button><button class="btn" type="button" id="lsCancel" data-i="bCancelEdit"></button></div>
+</form></div>
+<h3 class="sub" data-i="myLessons"></h3><div id="lessonList"></div>
+<h3 class="sub" data-i="basicsTitle"></h3><div class="grid" id="learnCards"></div>
+</section>
 
-<!-- NOTES -->
-<section id="notes" class="section"><div class="section-head"><h2>مفكرة تجارب القهوة</h2></div><div class="box"><label>عنوان الملاحظة</label><input id="noteTitle" placeholder="مثال: تجربة محصول إثيوبي"><label>ملاحظاتك</label><textarea id="noteText" placeholder="نوع البن، المحصول، المعالجة، التحميص، الطحن، الجرعة، الوقت والطعم..."></textarea><button class="btn primary" id="saveNote" style="margin-top:10px">حفظ الملاحظة</button></div><div id="notesList" class="grid" style="margin-top:14px"></div></section>
+<section id="notes" class="section"><div class="section-head"><h2 data-i="secNotes"></h2></div><div class="box"><label data-i="lNoteTitle"></label><input id="noteTitle" data-ip="phNoteTitle"><label data-i="lNotes"></label><textarea id="noteText" data-ip="phNoteText"></textarea><button class="btn primary" id="saveNote" style="margin-top:10px" data-i="bSaveNote"></button></div><div id="notesList" class="grid" style="margin-top:14px"></div></section>
 
-<!-- ACCOUNT -->
-<section id="account" class="section"><div class="section-head"><h2>حسابي</h2></div><div id="accountBody"></div></section>
+<section id="account" class="section"><div class="section-head"><h2 data-i="navAccount"></h2></div><div id="accountBody"></div></section>
 
-<footer>باريستا | BARISTA · SPECIALTY COFFEE LIBRARY</footer>
+<footer>BARISTA | باريستا · SPECIALTY COFFEE LIBRARY</footer>
 </div></main></div>
 
 <div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
+<div class="lock" id="lock"><div class="box"><img id="lockAva" src="profile.jpg" alt=""><h2 style="color:var(--gold);margin:10px 0 2px" id="lockName"></h2><p class="small" data-i="lockHint"></p><form id="lockForm"><input id="lockPass" type="password" autocomplete="current-password" dir="ltr" style="text-align:center"><div class="actions" style="justify-content:center"><button class="btn primary" data-i="bUnlock"></button><button class="btn" type="button" id="lockSwitch" data-i="bSwitchUser"></button></div></form></div></div>
 <div class="toast" id="toast"></div>
 <input type="file" id="importFile" accept="application/json,.json" style="display:none">
-
-<script>
-/* ===================== DATA ===================== */
-const U=id=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`;
-const TYPES=["قهوة مختصة","إسبريسو","مشروب ساخن","مشروب بارد","موكتيل","عصير وسموذي","كوكتيل","أخرى"];
-const ICONS={"قهوة مختصة":"☕","إسبريسو":"☕","مشروب ساخن":"🍵","مشروب بارد":"🧊","موكتيل":"🍹","كوكتيل":"🍸","عصير وسموذي":"🥤"};
-const ESP={dose:18,yield:36,time:"25–30 ث",temp:"93°م",grind:"ناعم"};
-const LIB=[
-{id:"lib-espresso",name:"إسبريسو",en:"Espresso (Double)",type:"إسبريسو",size:40,img:"1559496417-e7f25cb247f3",
- ing:[["بن مختص مطحون ناعم",18,"غ"],["ماء مفلتر (من الماكينة)",null,""]],ext:{...ESP},
- steps:["نظّف السلة وجففها جيدًا.","زن 18 غ من البن المطحون حديثًا.","وزّع البن بالتساوي ثم ادكّه بضغط ثابت ومستوٍ.","اشطف رأس المجموعة لثانيتين لضبط الحرارة.","ركّب الذراع وابدأ الاستخلاص فورًا مع الميزان والمؤقت.","أوقف عند 36 غ تقريبًا في الكوب وتذوّق."],
- notes:"إذا كان الطعم حامضًا والاستخلاص سريعًا: اطحن أنعم. إذا كان مرًا وبطيئًا: اطحن أخشن."},
-{id:"lib-americano",name:"أمريكانو",en:"Americano",type:"إسبريسو",size:240,img:"1551030173-122aabc4489c",
- ing:[["إسبريسو دبل",36,"غ"],["ماء ساخن (85–90°م)",200,"مل"]],ext:{...ESP},
- steps:["سخّن الكوب.","صب الماء الساخن في الكوب أولًا.","استخلص الإسبريسو مباشرة فوق الماء للحفاظ على الكريما.","قدّمه فورًا."],notes:"يمكن تعديل الماء بين 150 و250 مل حسب القوة المطلوبة."},
-{id:"lib-cappuccino",name:"كابتشينو",en:"Cappuccino",type:"إسبريسو",size:180,img:"1572442388796-11668a67e53d",
- ing:[["إسبريسو دبل",36,"غ"],["حليب طازج كامل الدسم",130,"مل"]],ext:{...ESP},
- steps:["استخلص الإسبريسو في كوب 180 مل مُسخّن.","بخّر الحليب حتى 60–65°م مع إدخال هواء كافٍ لرغوة بسماكة 1.5–2 سم.","اطرق الإبريق ولفّه لتلميع الرغوة.","اسكب الحليب وارسم شكل اللاتيه آرت."],notes:"الكابتشينو يحتاج رغوة أكثر من اللاتيه."},
-{id:"lib-latte",name:"لاتيه",en:"Caffè Latte",type:"إسبريسو",size:300,img:"1541167760496-1628856ab772",
- ing:[["إسبريسو دبل",36,"غ"],["حليب طازج",230,"مل"]],ext:{...ESP},
- steps:["استخلص الإسبريسو في كوب 300 مل.","بخّر الحليب حتى 60–65°م مع رغوة ناعمة رقيقة (حوالي 1 سم).","اسكب الحليب ببطء ثم ارسم الشكل."],notes:"لنكهات إضافية أضف 15–20 مل شراب (فانيلا، كراميل) قبل الحليب."},
-{id:"lib-flatwhite",name:"فلات وايت",en:"Flat White",type:"إسبريسو",size:160,img:"1485808191679-5f86510681a2",
- ing:[["ريستريتو دبل",30,"غ"],["حليب طازج",120,"مل"]],ext:{dose:18,yield:30,time:"20–25 ث",temp:"93°م",grind:"ناعم"},
- steps:["استخلص ريستريتو: 18 غ بن ← 30 غ ناتج.","بخّر الحليب برغوة دقيقة جدًا ولامعة (أقل من 1 سم).","اسكب بسرعة ثابتة للحصول على سطح مسطح وشكل بسيط."],notes:"طعم قهوة أوضح من اللاتيه بسبب قلة الحليب."},
-{id:"lib-cortado",name:"كورتادو",en:"Cortado",type:"إسبريسو",size:120,img:"1517487881594-2787fef5ebf7",
- ing:[["إسبريسو دبل",36,"غ"],["حليب مبخّر",60,"مل"]],ext:{...ESP},
- steps:["استخلص الإسبريسو في كوب زجاجي صغير.","بخّر الحليب برغوة قليلة جدًا.","أضف الحليب بنسبة 1:1 تقريبًا مع الإسبريسو."],notes:""},
-{id:"lib-spanish",name:"سبانش لاتيه بارد",en:"Iced Spanish Latte",type:"مشروب بارد",size:350,img:"1517701604599-bb29b565090c",
- ing:[["إسبريسو دبل",36,"غ"],["حليب مكثف محلّى",35,"مل"],["حليب بارد",180,"مل"],["ثلج",150,"غ"]],ext:{...ESP},
- steps:["ضع الحليب المكثف في قاع الكوب.","أضف الثلج ثم الحليب البارد.","استخلص الإسبريسو واسكبه ببطء فوق الحليب لتكوين الطبقات.","قلّب قبل الشرب."],notes:"من أكثر المشروبات طلبًا في المقاهي السعودية."},
-{id:"lib-icedlatte",name:"آيس لاتيه",en:"Iced Latte",type:"مشروب بارد",size:350,img:"1461023058943-07fcbe16d735",
- ing:[["إسبريسو دبل",36,"غ"],["حليب بارد",200,"مل"],["ثلج",150,"غ"],["شراب (اختياري)",15,"مل"]],ext:{...ESP},
- steps:["املأ الكوب بالثلج.","أضف الحليب البارد (والشراب إن وُجد).","اسكب الإسبريسو فوق الحليب."],notes:""},
-{id:"lib-icedmocha",name:"آيس موكا",en:"Iced Mocha",type:"مشروب بارد",size:400,img:"1578314675249-a6910f80cc4e",
- ing:[["إسبريسو دبل",36,"غ"],["صوص شوكولاتة",30,"مل"],["حليب بارد",180,"مل"],["ثلج",150,"غ"],["كريمة مخفوقة (اختياري)",20,"غ"]],ext:{...ESP},
- steps:["اخلط الإسبريسو الساخن مع صوص الشوكولاتة حتى يذوب.","ضع الثلج والحليب في الكوب.","اسكب خليط الموكا وزيّن بالكريمة."],notes:""},
-{id:"lib-v60",name:"V60",en:"V60 Pour Over",type:"قهوة مختصة",size:250,img:"1442512595331-e89e73853f31",
- ing:[["بن مختص مطحون متوسط-ناعم",15,"غ"],["ماء (92–94°م)",250,"غ"]],ext:{dose:15,yield:250,time:"2:30–3:00 د",temp:"93°م",grind:"متوسط-ناعم"},
- steps:["اشطف الفلتر الورقي بالماء الساخن وتخلّص من الماء.","أضف البن وسوِّ سطحه وصفّر الميزان.","التحميص (Bloom): صب 30–40 غ ماء وانتظر 30–45 ثانية.","صب حتى 150 غ بحركة دائرية بطيئة.","عند 1:15 صب حتى 250 غ.","انتهاء التقطير بين 2:30 و3:00 دقائق."],notes:"النسبة 1:16.7. إذا كان الطعم حامضًا اطحن أنعم، وإذا كان مرًا اطحن أخشن."},
-{id:"lib-coldbrew",name:"كولد برو",en:"Cold Brew",type:"قهوة مختصة",size:1000,img:"1521302080334-4bebac2763a6",
- ing:[["بن مطحون خشن جدًا",100,"غ"],["ماء بارد مفلتر",1000,"مل"]],ext:{dose:100,yield:1000,time:"12–18 ساعة",temp:"ثلاجة 4°م",grind:"خشن جدًا"},
- steps:["اخلط البن مع الماء البارد وقلّب حتى يتبلل كله.","غطِّ الوعاء واتركه في الثلاجة 12–18 ساعة.","صفِّه بفلتر قماش أو ورق.","قدّمه على الثلج، ويمكن تخفيفه بالماء أو الحليب 1:1 حسب التركيز."],notes:"يحفظ في الثلاجة حتى 7 أيام."},
-{id:"lib-matcha",name:"ماتشا لاتيه",en:"Matcha Latte",type:"مشروب ساخن",size:250,img:"1515823064-d6e0c04616a7",
- ing:[["ماتشا",2,"غ"],["ماء (75–80°م)",40,"مل"],["حليب",200,"مل"],["شراب أو عسل (اختياري)",10,"مل"]],ext:{temp:"80°م"},
- steps:["انخل الماتشا في وعاء.","أضف الماء واخفق بحركة حرف W حتى تتكوّن رغوة ناعمة.","بخّر الحليب حتى 60°م.","اسكب الحليب فوق الماتشا."],notes:"لا تستخدم ماءً مغليًا حتى لا تصبح الماتشا مُرّة."},
-{id:"lib-hotchoc",name:"شوكولاتة ساخنة",en:"Hot Chocolate",type:"مشروب ساخن",size:250,img:"1542990253-0d0f5be5f0ed",
- ing:[["شوكولاتة داكنة مقطعة",30,"غ"],["كاكاو خام",5,"غ"],["حليب",220,"مل"],["سكر",10,"غ"]],ext:{temp:"65°م"},
- steps:["سخّن الحليب حتى يقارب الغليان دون أن يغلي.","أضف الشوكولاتة والكاكاو والسكر واخفق حتى الذوبان.","قدّمه مع رغوة خفيفة أو مارشملو."],notes:""},
-{id:"lib-karak",name:"شاي كرك",en:"Karak Chai",type:"مشروب ساخن",size:200,img:"1544787219-7f47ccb76574",
- ing:[["شاي أسود ناعم",6,"غ"],["ماء",150,"مل"],["حليب مبخّر",100,"مل"],["سكر",15,"غ"],["هيل مطحون",1,"غ"],["زعفران",null,"رشة"]],ext:{time:"5–7 د غلي"},
- steps:["اغلِ الماء مع الشاي والهيل 3 دقائق.","أضف السكر والزعفران.","أضف الحليب المبخر واتركه يغلي مرتين على نار هادئة.","صفِّه وقدّمه ساخنًا."],notes:""},
-{id:"lib-mojito",name:"موهيتو (بدون كحول)",en:"Virgin Mojito",type:"موكتيل",size:350,img:"1513558161293-cdaf765ed2fd",
- ing:[["ليمون أخضر مقطّع",4,"قطع"],["أوراق نعناع",10,"ورقة"],["شراب سكر",20,"مل"],["عصير ليمون طازج",20,"مل"],["ثلج مجروش",150,"غ"],["مياه صودا",150,"مل"]],ext:{},
- steps:["اهرس الليمون والنعناع مع شراب السكر برفق في قاع الكوب.","أضف عصير الليمون والثلج المجروش.","أكمل بالصودا وقلّب من الأسفل للأعلى.","زيّن بغصن نعناع وشريحة ليمون."],notes:"لا تهرس النعناع بقوة حتى لا يصبح مرًا."},
-{id:"lib-lemonmint",name:"ليمون بالنعناع",en:"Lemon Mint",type:"موكتيل",size:350,img:"1621263764928-df1444c5e859",
- ing:[["عصير ليمون طازج",40,"مل"],["أوراق نعناع",12,"ورقة"],["شراب سكر",30,"مل"],["ماء بارد",150,"مل"],["ثلج",150,"غ"]],ext:{},
- steps:["ضع جميع المكونات في الخلاط.","اخلط 20–30 ثانية حتى يصبح ناعمًا.","اسكب في كوب وزيّن بالنعناع."],notes:""},
-{id:"lib-icedtea",name:"آيس تي بالليمون",en:"Iced Lemon Tea",type:"موكتيل",size:350,img:"1556679343-c7306c1976bc",
- ing:[["شاي أسود",5,"غ"],["ماء ساخن (95°م)",150,"مل"],["شراب سكر",20,"مل"],["عصير ليمون",15,"مل"],["ثلج",150,"غ"]],ext:{time:"4 د نقع",temp:"95°م"},
- steps:["انقع الشاي في الماء الساخن 4 دقائق ثم صفِّه.","أضف شراب السكر والليمون.","اسكبه مباشرة على الثلج لتبريده بسرعة."],notes:""},
-{id:"lib-mango",name:"مانجو كولر",en:"Mango Cooler",type:"عصير وسموذي",size:400,img:"1546173159-315724a31696",
- ing:[["مانجو طازجة أو مجمدة",150,"غ"],["عصير برتقال",80,"مل"],["شراب سكر",15,"مل"],["ثلج",120,"غ"]],ext:{},
- steps:["ضع المكونات في الخلاط.","اخلط حتى يصبح القوام ناعمًا.","قدّمه مع شريحة مانجو."],notes:""},
-{id:"lib-berry",name:"سموذي التوت",en:"Berry Smoothie",type:"عصير وسموذي",size:400,img:"1553530666-ba11a7da3888",
- ing:[["توت مشكل مجمد",150,"غ"],["موز",60,"غ"],["زبادي",100,"غ"],["حليب",80,"مل"],["عسل",15,"مل"]],ext:{},
- steps:["ضع الحليب والزبادي أولًا في الخلاط.","أضف الفواكه والعسل.","اخلط 40 ثانية حتى يصبح ناعمًا."],notes:""}
-];
-const ENCY=[
-{key:"species",title:"الأنواع الرئيسية",items:[
-["أرابيكا · Arabica","نوع واسع الانتشار، معروف بتنوع الروائح والنكهات، ويضم أصنافًا كثيرة."],
-["روبوستا · Canephora","غالبًا أعلى كافيينًا وأكثر مرارة وقوامًا؛ يستخدم في بعض الخلطات والقهوة الفورية."],
-["ليبيريكا · Liberica","نوع أقل انتشارًا، وقد تظهر في بعض محاصيله روائح فاكهية وخشبية."],
-["إكسلسا · Excelsa","اسم شائع تاريخيًا ضمن مجموعة ليبيريكا، وله طابع عطري مميز في بعض المحاصيل."]]},
-{key:"varieties",title:"أصناف وسلالات مشهورة",items:[
-["جيشا · Geisha","صنف مشهور بعطر زهري ونكهات دقيقة في بعض المحاصيل."],["بوربون · Bourbon","صنف من أرابيكا، تختلف خصائصه حسب البيئة والمعالجة."],["تيبيكا · Typica","من السلالات التقليدية لأرابيكا."],["كاتورا · Caturra","طفرة من بوربون تزرع في دول متعددة."],["كاتواي · Catuai","هجين من موندو نوفو وكاتورا."],["SL28 وSL34","سلالات مرتبطة بمحاصيل كينية معروفة."],["بكّامارا · Pacamara","هجين بحبوب كبيرة وإمكانات نكهة معقدة."],["سيدرا · Sidra","صنف يظهر في بعض مزارع القهوة المختصة."]]},
-{key:"process",title:"المعالجة بعد الحصاد",items:[
-["مغسولة · Washed","تزال طبقات الثمرة قبل التجفيف غالبًا؛ قد تبرز الوضوح والحموضة."],["طبيعية · Natural","تجفف الثمرة حول الحبة؛ قد تزيد النكهات الفاكهية والقوام."],["عسلية · Honey","يبقى جزء من المادة اللزجة أثناء التجفيف، ولها درجات متعددة (أصفر، أحمر، أسود)."],["لاهوائية · Anaerobic","تخمير مضبوط ببيئة محدودة الأكسجين؛ تختلف النتيجة حسب المنهج."],["تخمير كربوني · Carbonic Maceration","تستخدم بعض المعالجات بيئة غنية بثاني أكسيد الكربون."],["منزوعة الكافيين · Decaf","يُزال معظم الكافيين بطرق مختلفة (ماء سويسري، ثاني أكسيد الكربون، مذيبات)، وقد تبقى كمية قليلة."]]},
-{key:"origins",title:"دول ومناطق الإنتاج",items:[
-["إثيوبيا","تنوع كبير في الأصناف المحلية؛ قد تظهر نكهات زهرية وحمضيات وفواكه."],["كولومبيا","مناطق ومحاصيل متنوعة، تتغير نكهاتها حسب الصنف والمعالجة."],["البرازيل","كثير من المحاصيل تقدم نكهات مكسرات وشوكولاتة."],["كينيا","قد تتميز بعض المحاصيل بحموضة مشرقة وطابع فاكهي."],["اليمن","تاريخ طويل في زراعة القهوة ومحاصيل ذات طابع مميز."],["كوستاريكا","تشتهر بتنوع المناطق وطرق المعالجة."],["بنما","مرتبطة بمحاصيل جيشا مشهورة إلى جانب أصناف أخرى."],["إندونيسيا","محاصيل متنوعة وقد تقدم بعضها قوامًا ممتلئًا."],["السعودية (جازان)","زراعة تقليدية في المدرجات الجبلية لصنف الخولاني، باهتمام متزايد بالقهوة المختصة."]]},
-{key:"roast",title:"التحميص",items:[
-["تحميص فاتح · Light","يحافظ على حموضة البن ونكهات المنشأ (زهور، فواكه). مناسب للتقطير اليدوي. ينتهي غالبًا بعد الفرقعة الأولى بقليل."],
-["تحميص متوسط · Medium","توازن بين الحموضة والحلاوة والقوام؛ نكهات كراميل ومكسرات. مناسب للإسبريسو والفلتر."],
-["متوسط-داكن · Medium-Dark","قوام أعلى وحموضة أقل؛ يبدأ ظهور مرارة لطيفة وشوكولاتة. شائع في خلطات الإسبريسو مع الحليب."],
-["تحميص داكن · Dark","سطح زيتي ونكهات محمّصة ومدخّنة؛ تختفي معظم نكهات المنشأ. يتجاوز الفرقعة الثانية."],
-["مراحل التحميص","التجفيف (اصفرار الحبة) ← تفاعل ميلارد والكرملة ← الفرقعة الأولى ← وقت التطوير ← الفرقعة الثانية."],
-["وقت التطوير · DTR","الوقت بعد الفرقعة الأولى كنسبة من زمن التحميص الكلي، غالبًا 15–25%؛ يؤثر على الحلاوة والحموضة."],
-["الراحة بعد التحميص · Degassing","يخرج ثاني أكسيد الكربون من البن بعد التحميص. الفلتر غالبًا بعد 4–7 أيام، والإسبريسو بعد 7–14 يومًا."],
-["التخزين","في عبوة محكمة بصمام أحادي الاتجاه، بعيدًا عن الضوء والحرارة والرطوبة. لا تحفظ البن المفتوح في الثلاجة."]]},
-{key:"grind",title:"الطحن",table:{head:["طريقة التحضير","درجة الطحن","الملمس التقريبي"],rows:[
-["قهوة تركية","فائق النعومة","مثل الدقيق"],["إسبريسو","ناعم","مثل السكر الناعم"],["موكا بوت","ناعم إلى متوسط","أخشن قليلًا من الإسبريسو"],["V60 / آيروبرس","متوسط-ناعم","مثل ملح الطعام"],["كيمكس / فلتر آلي","متوسط إلى متوسط-خشن","مثل الرمل الخشن"],["فرنش برس","خشن","مثل ملح البحر"],["كولد برو","خشن جدًا","مثل الفلفل المجروش"]]},items:[
-["المطحنة ذات الأقراص · Burr","تطحن بحجم متجانس، وهي الأساس للحصول على استخلاص متوازن. الأقراص المسطحة تعطي وضوحًا والمخروطية قوامًا أكثر غالبًا."],
-["مطحنة الشفرات · Blade","تكسر الحبوب بشكل غير متجانس، فينتج استخلاص زائد وناقص في نفس الكوب. لا ينصح بها للقهوة المختصة."],
-["الطحن الطازج","تفقد القهوة كثيرًا من روائحها خلال دقائق من الطحن؛ اطحن مباشرة قبل التحضير."],
-["قاعدة التعديل","أنعم = استخلاص أبطأ وأقوى. أخشن = استخلاص أسرع وأخف. غيّر الطحن بخطوات صغيرة."]]},
-{key:"methods",title:"طرق التحضير",items:[
-["V60","صب يدوي بفلتر ورقي.","1:15–1:17","متوسط-ناعم","2:30–3:00 د","92–94°م"],
-["كيمكس · Chemex","فلتر ورقي سميك يعطي كوبًا واضحًا ونظيفًا.","1:15–1:16","متوسط-خشن","4:00–4:30 د","93°م"],
-["إسبريسو · Espresso","استخلاص مركز تحت ضغط حوالي 9 بار.","1:2","ناعم","25–30 ث","90–96°م"],
-["آيروبرس · AeroPress","أداة مرنة بالغمر والضغط اليدوي.","1:12–1:16","متوسط-ناعم","1:30–2:30 د","80–92°م"],
-["فرنش برس · French Press","غمر كامل مع فلتر معدني يعطي قوامًا أعلى.","1:15","خشن","4 د","94°م"],
-["كولد برو · Cold Brew","استخلاص بالماء البارد لفترة طويلة.","1:8–1:10","خشن جدًا","12–18 ساعة","بارد"],
-["موكا بوت · Moka Pot","تحضير على الموقد ينتج قهوة مركزة، لكنها ليست إسبريسو.","1:7–1:10","ناعم-متوسط","4–5 د","ماء ساخن مسبقًا"],
-["قهوة تركية","غلي البن الناعم جدًا مع الماء في الدلّة.","1:10","فائق النعومة","3–4 د","حتى ظهور الرغوة"],
-["لاتيه وكابتشينو","مشروبات إسبريسو مع حليب مبخر، تختلف نسبة الحليب والرغوة.","—","ناعم","—","حليب 60–65°م"]]},
-{key:"espresso",title:"استخلاص الإسبريسو",items:[
-["الجرعة · Dose","كمية البن الجاف في السلة، عادة 16–20 غ للدبل. ثبّتها أولًا قبل تعديل أي متغير."],
-["الناتج · Yield","وزن السائل في الكوب. الشائع 1:2 (18 غ ← 36 غ). ريستريتو 1:1–1:1.5، لونغو 1:3 أو أكثر."],
-["الوقت · Time","من بدء الضخ حتى إيقافه، غالبًا 25–30 ثانية. هو نتيجة للطحن والجرعة، وليس هدفًا بحد ذاته."],
-["الحرارة · Temperature","بين 90 و96°م. التحميص الفاتح يحتاج حرارة أعلى، والداكن حرارة أقل."],
-["الضغط · Pressure","حوالي 9 بار في معظم الماكينات التجارية، وبعضها يتيح التحكم بالضغط المسبق (Pre-infusion)."],
-["التوزيع والدك · Distribution & Tamping","توزيع متساوٍ ودك مستوٍ يمنع تكوّن القنوات (Channeling) حيث يمر الماء من مناطق ضعيفة."],
-["نسبة الاستخلاص · Extraction Yield","النسبة المذابة من البن في الكوب، المثالية غالبًا 18–22%. وتقاس مع TDS بجهاز الريفراكتوميتر."]],
- trouble:[["استخلاص ناقص (Under)","حامض، مالح، خفيف، ينتهي بسرعة","اطحن أنعم، أو زِد الناتج قليلًا، أو ارفع الحرارة"],["استخلاص زائد (Over)","مر، جاف، قابض، يتقطر ببطء","اطحن أخشن، أو قلّل الناتج، أو اخفض الحرارة"],["قنوات (Channeling)","تدفق غير متساوٍ، بقع فاتحة، طعم حامض ومر معًا","حسّن التوزيع والدك، وتأكد من جفاف السلة ونظافتها"],["متوازن","حلو، حموضة لطيفة، قوام جيد، نهاية نظيفة","ثبّت الوصفة وسجّلها في ريسيبياتي"]]}
-];
-const LEARN=[["أساسيات القهوة المختصة","من الحبة الخضراء إلى التحميص والطحن والاستخلاص والتذوق."],["معادلة الإسبريسو","Dose · Grind · Yield · Time · Temperature · Pressure · Taste."],["التذوق الحسي","تدرب على الحموضة والحلاوة والمرارة والقوام والعطر والتوازن."],["تبخير الحليب","إدخال الهواء في أول 3–5 ثوانٍ، ثم دوامة لتنعيم الرغوة حتى 60–65°م. لا تعيد تبخير الحليب."],["أساسيات اللاتيه آرت","ابدأ بالقلب، ثم التوليب، ثم الروزيتا. التحكم في الارتفاع وسرعة الصب هو الأساس."],["الباريستا والبارتندر","تنظيم محطة العمل والنظافة ووصفات المشروبات وخدمة الضيوف."],["أساسيات الموكتيل","التوازن بين الحلو والحامض، الثلج المناسب، والتزيين. القاعدة الشائعة: 2 حلو : 1 حامض."],["إدارة الوصفات","سجل المقادير الدقيقة، خطوات التحضير، حجم الحصة، والتكلفة."],["تطوير الوصفة","غيّر متغيرًا واحدًا في كل تجربة وسجل أثره على الطعم."],["النظافة والصيانة","تنظيف رأس المجموعة يوميًا (Backflush)، وتنظيف عصا البخار بعد كل استخدام، وإزالة الترسبات دوريًا."]];
-
-/* ===================== HELPERS ===================== */
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-const AR="٠١٢٣٤٥٦٧٨٩";
-function norm(s){return String(s??"").toLowerCase().replace(/[\u064B-\u0652\u0640]/g,"").replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[٠-٩]/g,d=>AR.indexOf(d))}
-function terms(q){return norm(q).split(/\s+/).filter(Boolean)}
-function matches(text,ts){if(!ts.length)return true;const n=norm(text);return ts.every(t=>n.includes(t))}
-function hl(text,q){let h=esc(text);if(!q)return h;q.trim().split(/\s+/).filter(w=>w.length>1).forEach(w=>{const re=new RegExp("("+esc(w).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi");h=h.replace(re,"<mark>$1</mark>")});return h}
-const num=v=>Math.max(0,Number(v)||0);
-const sar=v=>(Number(v)||0).toFixed(2)+" ر.س";
-function fmt(n){if(n==null||isNaN(n))return"";const r=Math.abs(n)>=100?Math.round(n):Math.round(n*10)/10;return String(r)}
-function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1900)}
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-
-/* ===================== STORAGE (IndexedDB) ===================== */
-const DB=(()=>{let p=null;
- function open(){if(p)return p;p=new Promise((res,rej)=>{try{const r=indexedDB.open("baristaLibrary",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}});return p}
- function tx(mode,fn){return open().then(db=>new Promise((res,rej)=>{const t=db.transaction("kv",mode);const r=fn(t.objectStore("kv"));t.oncomplete=()=>res(r&&r.result);t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error)}))}
- const ls={get:k=>{try{return JSON.parse(localStorage.getItem("kv:"+k))}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem("kv:"+k,JSON.stringify(v))}catch(e){toast("المساحة ممتلئة")}},del:k=>{try{localStorage.removeItem("kv:"+k)}catch(e){}}};
- return{get:k=>tx("readonly",s=>s.get(k)).catch(()=>ls.get(k)),set:(k,v)=>tx("readwrite",s=>s.put(v,k)).catch(()=>ls.set(k,v)),del:k=>tx("readwrite",s=>s.delete(k)).catch(()=>ls.del(k))}})();
-
-/* ===================== STATE & ACCOUNTS ===================== */
-const S={uid:"guest",user:null,users:[],recipes:[],notes:[],favs:[],costs:[]};
-const KEYS=["recipes","notes","favs","costs"];
-const imgCache=new Map();
-async function hashPw(pw,salt){const s=salt+"|"+pw;try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return"h"+h}}
-async function loadSession(){
- S.users=(await DB.get("users"))||[];
- let sid=null;try{sid=localStorage.getItem("bb_session")}catch(e){}
- S.user=S.users.find(u=>u.id===sid)||null;S.uid=S.user?S.user.id:"guest";
- for(const k of KEYS)S[k]=(await DB.get(S.uid+":"+k))||[];
- imgCache.clear();renderAll();
-}
-async function save(k){await DB.set(S.uid+":"+k,S[k]);updateStats()}
-function setSession(id){try{id?localStorage.setItem("bb_session",id):localStorage.removeItem("bb_session")}catch(e){}}
-async function migrateOld(){
- if(await DB.get("migratedV1"))return;
- try{const r=JSON.parse(localStorage.getItem("baristaRecipes")||"[]"),n=JSON.parse(localStorage.getItem("baristaNotes")||"[]");
-  if(r.length){const cur=(await DB.get("guest:recipes"))||[];await DB.set("guest:recipes",cur.concat(r.map(x=>({...x,id:String(x.id),created:Number(x.id)||Date.now()}))))}
-  if(n.length){const cur=(await DB.get("guest:notes"))||[];await DB.set("guest:notes",cur.concat(n))}
- }catch(e){}
- await DB.set("migratedV1",true);
-}
-
-/* ===================== NAV ===================== */
-function activate(id){$$(".section").forEach(s=>s.classList.toggle("active",s.id===id));$$("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));window.scrollTo({top:0,behavior:"smooth"});if(id==="search")runSearch();if(id==="favs")renderFavs()}
-document.addEventListener("click",e=>{const t=e.target.closest("[data-tab]");if(t){activate(t.dataset.tab);return}
- const a=e.target.closest("[data-act]");if(!a)return;const id=a.dataset.id;
- switch(a.dataset.act){
-  case"fav":e.stopPropagation();toggleFav(id);break;
-  case"open":openRecipe(id);break;
-  case"close":closeModal();break;
-  case"edit":closeModal();editRecipe(id);break;
-  case"del":deleteRecipe(id);break;
-  case"copy":copyToMine(id);break;
-  case"scale":closeModal();activate("tools");$("#scRecipe").value=id;renderScale();setTimeout(()=>$("#scRecipe").scrollIntoView({block:"center"}),300);break;
-  case"cost":closeModal();costFromRecipe(id);break;
-  case"jump":activate(a.dataset.sec);break;
-  case"ency":{const el=document.getElementById("ency-"+a.dataset.key);if(el)el.scrollIntoView({behavior:"smooth"});break}
-  case"loadCost":loadCost(id);break;
-  case"delCost":S.costs=S.costs.filter(c=>c.id!==id);save("costs");renderCostList();break;
-  case"delNote":S.notes=S.notes.filter(n=>n.id!==id);save("notes");renderNotes();break;
-  case"delRow":costRows.splice(+a.dataset.i,1);renderCostRows();break;
-  case"preset":$("#ratio").value=a.dataset.v;ratioCalc();break;
-  case"libType":libType=a.dataset.v;renderLibrary();break;
- }
-});
-$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
-
-/* ===================== RECIPES ===================== */
-function allRecipes(){return[...LIB.map(r=>({...r,lib:true})),...S.recipes]}
-function findRecipe(id){return allRecipes().find(r=>r.id===id)}
-function typesInUse(){const s=new Set(TYPES.slice(0,6));allRecipes().forEach(r=>r.type&&s.add(r.type));return[...s]}
-function ingLines(r){return r.lib?r.ing.map(([n,q,u])=>q==null?(u?`${n} (${u})`:n):`${n} ${q} ${u}`):String(r.ingredients||"").split("\n").map(s=>s.trim()).filter(Boolean)}
-function stepLines(r){return r.lib?r.steps:String(r.steps||"").split("\n").map(s=>s.trim()).filter(Boolean)}
-function recipeText(r){return[r.name,r.en,r.type,ingLines(r).join(" "),stepLines(r).join(" "),r.notes,r.ext&&Object.values(r.ext).join(" ")].join(" ")}
-function ratioOf(e){return e&&e.dose&&e.yield?"1:"+(e.yield/e.dose).toFixed(e.yield/e.dose>=10?1:1):null}
-function thumbHTML(r){if(r.lib)return`<img src="${U(r.img)}" loading="lazy" alt="${esc(r.name)}">`;if(r.hasImg)return`<img data-own="${esc(r.id)}" alt="${esc(r.name)}">`;return`<div class="ph">${ICONS[r.type]||"☕"}</div>`}
-function recipeCard(r,q=""){const fav=S.favs.includes(r.id),e=r.ext||{};const chips=[];if(r.size)chips.push(`<span><i>الحجم</i> ${esc(r.size)} مل</span>`);if(e.time)chips.push(`<span><i>⏱</i> ${esc(e.time)}</span>`);const ro=ratioOf(e);if(ro)chips.push(`<span><i>النسبة</i> ${ro}</span>`);
- return`<article class="card rcard" data-act="open" data-id="${esc(r.id)}"><div class="thumb">${thumbHTML(r)}<button class="fav ${fav?"on":""}" data-act="fav" data-id="${esc(r.id)}" title="المفضلة" aria-label="المفضلة">${fav?"♥":"♡"}</button><span class="badge ${r.lib?"":"mine"}">${r.lib?"من المكتبة":"وصفتي"}</span></div><div class="rbody"><span class="tag">${esc(r.type)}</span><h3>${hl(r.name,q)}</h3>${r.en?`<div class="en">${esc(r.en)}</div>`:""}${chips.length?`<div class="kv">${chips.join("")}</div>`:""}</div></article>`}
-async function hydrate(root){for(const img of (root||document).querySelectorAll("img[data-own]")){if(img.src)continue;const id=img.dataset.own;let d=imgCache.get(id);if(d===undefined){d=(await DB.get("img:"+S.uid+":"+id))||null;imgCache.set(id,d)}if(d)img.src=d;else img.replaceWith(Object.assign(document.createElement("div"),{className:"ph",textContent:"☕"}))}}
-function grid(el,list,q,emptyMsg){el.innerHTML=list.length?list.map(r=>recipeCard(r,q)).join(""):`<div class="empty">${emptyMsg}</div>`;hydrate(el)}
-
-let libType="الكل";
-function renderLibrary(){const types=["الكل",...new Set(LIB.map(r=>r.type))];$("#libFilters").innerHTML=types.map(t=>`<button class="${t===libType?"on":""}" data-act="libType" data-v="${esc(t)}">${esc(t)}</button>`).join("");
- const q=$("#libSearch").value,ts=terms(q);grid($("#libGrid"),LIB.map(r=>({...r,lib:true})).filter(r=>(libType==="الكل"||r.type===libType)&&matches(recipeText(r),ts)),q,"لا توجد وصفات مطابقة.")}
-$("#libSearch").addEventListener("input",renderLibrary);
-
-function openRecipe(id){const r=findRecipe(id);if(!r)return;const e=r.ext||{},fav=S.favs.includes(r.id);
- const ext=[];if(e.dose)ext.push(["الجرعة",e.dose+" غ"]);if(e.yield)ext.push(["الناتج",e.yield+" غ"]);const ro=ratioOf(e);if(ro)ext.push(["النسبة",ro]);if(e.time)ext.push(["زمن الاستخلاص",e.time]);if(e.temp)ext.push(["الحرارة",e.temp]);if(e.grind)ext.push(["الطحن",e.grind]);if(r.size)ext.push(["حجم الكوب",r.size+" مل"]);
- const ingT=r.lib?`<table class="tbl"><thead><tr><th>المكوّن</th><th>الكمية</th></tr></thead><tbody>${r.ing.map(([n,q,u])=>`<tr><td>${esc(n)}</td><td>${q==null?esc(u||"حسب الحاجة"):`<b>${q}</b> ${esc(u)}`}</td></tr>`).join("")}</tbody></table>`:`<ul class="steps">${ingLines(r).map(l=>`<li>${esc(l)}</li>`).join("")}</ul>`;
- const st=stepLines(r);
- $("#sheet").innerHTML=`<button class="close" data-act="close" aria-label="إغلاق">✕</button><div class="hero-img">${r.lib?`<img src="${U(r.img).replace("w=800","w=1400")}" alt="">`:r.hasImg?`<img data-own="${esc(r.id)}" alt="">`:`<div class="ph">${ICONS[r.type]||"☕"}</div>`}</div>
- <div class="sheet-body"><span class="tag">${esc(r.type)}</span>${r.lib?"":` <span class="tag" style="color:var(--green)">وصفتي</span>`}<h2>${esc(r.name)}</h2>${r.en?`<div class="small" style="direction:ltr;text-align:right">${esc(r.en)}</div>`:""}
- ${ext.length?`<div class="extbox">${ext.map(([k,v])=>`<div><b>${esc(v)}</b><span>${k}</span></div>`).join("")}</div>`:""}
- <h3 style="color:var(--gold);margin:16px 0 6px">المقادير</h3>${ingT}
- ${st.length?`<h3 style="color:var(--gold);margin:16px 0 6px">طريقة التحضير</h3><ol class="steps">${st.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}
- ${r.notes?`<div class="note">💡 ${esc(r.notes)}</div>`:""}
- <div class="actions"><button class="btn ${fav?"primary":""}" data-act="fav" data-id="${esc(r.id)}" id="mFav">${fav?"♥ في المفضلة":"♡ أضف للمفضلة"}</button><button class="btn" data-act="scale" data-id="${esc(r.id)}">⚖ تكبير/تصغير</button><button class="btn" data-act="cost" data-id="${esc(r.id)}">▦ احسب التكلفة</button>${r.lib?`<button class="btn" data-act="copy" data-id="${esc(r.id)}">＋ انسخ إلى ريسيبياتي</button>`:`<button class="btn" data-act="edit" data-id="${esc(r.id)}">تعديل</button><button class="btn danger" data-act="del" data-id="${esc(r.id)}">حذف</button>`}</div></div>`;
- $("#modal").classList.add("open");document.body.style.overflow="hidden";hydrate($("#sheet"))}
-function closeModal(){$("#modal").classList.remove("open");document.body.style.overflow=""}
-
-function toggleFav(id){const i=S.favs.indexOf(id);if(i>=0)S.favs.splice(i,1);else S.favs.push(id);save("favs");const on=S.favs.includes(id);
- $$(`.fav[data-id="${CSS.escape(id)}"]`).forEach(b=>{b.classList.toggle("on",on);b.textContent=on?"♥":"♡"});const m=$("#mFav");if(m&&m.dataset.id===id){m.classList.toggle("primary",on);m.textContent=on?"♥ في المفضلة":"♡ أضف للمفضلة"}
- toast(on?"أُضيفت إلى المفضلة":"أُزيلت من المفضلة");if($("#favs").classList.contains("active"))renderFavs()}
-function renderFavs(){const list=S.favs.map(findRecipe).filter(Boolean);grid($("#favGrid"),list,"","لا توجد وصفات في المفضلة بعد. اضغط ♡ على أي وصفة لإضافتها.")}
-
-/* my recipes form */
-let pendingImg=null,removeImg=false;
-$("#rtype").innerHTML=TYPES.map(t=>`<option>${t}</option>`).join("");
-function compressImage(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const M=1100,sc=Math.min(1,M/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext("2d").drawImage(im,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.8))};im.onerror=rej;im.src=fr.result};fr.onerror=rej;fr.readAsDataURL(file)})}
-$("#rimg").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{pendingImg=await compressImage(f);removeImg=false;showPrev(pendingImg)}catch(err){toast("تعذّر قراءة الصورة")}});
-function showPrev(src){const p=$("#rimgPrev");if(src){p.style.display="flex";p.querySelector("img").src=src}else{p.style.display="none";p.querySelector("img").removeAttribute("src")}}
-$("#rimgDel").addEventListener("click",()=>{pendingImg=null;removeImg=true;$("#rimg").value="";showPrev(null)});
-function resetForm(){$("#recipeForm").reset();$("#editId").value="";pendingImg=null;removeImg=false;showPrev(null);$("#saveRecipeBtn").textContent="حفظ الوصفة"}
-$("#cancelEdit").addEventListener("click",resetForm);
-$("#recipeForm").addEventListener("submit",async e=>{e.preventDefault();const old=$("#editId").value,id=old||uid(),prev=S.recipes.find(x=>x.id===id);
- const r={id,name:$("#rname").value.trim(),type:$("#rtype").value,size:$("#rsize").value,ingredients:$("#ring").value,steps:$("#rsteps").value,notes:$("#rnotes").value,
-  ext:{dose:$("#rdose").value?Number($("#rdose").value):"",yield:$("#ryield").value?Number($("#ryield").value):"",time:$("#rtime").value.trim(),temp:$("#rtemp").value.trim(),grind:$("#rgrind").value.trim()},
-  hasImg:prev?!!prev.hasImg:false,created:prev?prev.created||Date.now():Date.now(),updated:Date.now()};
- const key="img:"+S.uid+":"+id;
- if(pendingImg){await DB.set(key,pendingImg);imgCache.set(id,pendingImg);r.hasImg=true}else if(removeImg){await DB.del(key);imgCache.delete(id);r.hasImg=false}
- const i=S.recipes.findIndex(x=>x.id===id);if(i>=0)S.recipes[i]=r;else S.recipes.unshift(r);await save("recipes");resetForm();renderMine();toast(old?"تم تحديث الوصفة":"تم حفظ الوصفة")});
-function editRecipe(id){const r=S.recipes.find(x=>x.id===id);if(!r)return;activate("recipes");const e=r.ext||{};
- const m={editId:r.id,rname:r.name,rtype:r.type,rsize:r.size,ring:r.ingredients,rsteps:r.steps,rnotes:r.notes,rdose:e.dose,ryield:e.yield,rtime:e.time,rtemp:e.temp,rgrind:e.grind};
- if(r.type&&![...$("#rtype").options].some(o=>o.value===r.type))$("#rtype").insertAdjacentHTML("beforeend",`<option>${esc(r.type)}</option>`);
- for(const[k,v]of Object.entries(m))document.getElementById(k).value=v??"";pendingImg=null;removeImg=false;
- if(r.hasImg)DB.get("img:"+S.uid+":"+r.id).then(d=>showPrev(d||null));else showPrev(null);$("#saveRecipeBtn").textContent="حفظ التعديلات"}
-async function deleteRecipe(id){if(!confirm("هل تريد حذف هذه الوصفة؟"))return;S.recipes=S.recipes.filter(x=>x.id!==id);S.favs=S.favs.filter(f=>f!==id);await DB.del("img:"+S.uid+":"+id);imgCache.delete(id);await save("recipes");await save("favs");closeModal();renderMine();toast("تم الحذف")}
-async function copyToMine(id){const r=findRecipe(id);if(!r)return;const n={id:uid(),name:r.name+" (نسختي)",type:r.type,size:r.size||"",ingredients:ingLines(r).join("\n"),steps:stepLines(r).join("\n"),notes:r.notes||"",ext:{...(r.ext||{})},hasImg:false,created:Date.now()};
- S.recipes.unshift(n);await save("recipes");renderMine();closeModal();editRecipe(n.id);toast("تم النسخ — عدّلها كما تريد")}
-function renderMine(){const list=[...S.recipes];grid($("#myRecipes"),list,"","ما حفظت وصفاتك بعد. أضف أول ريسيبي لك من النموذج أعلاه.");renderGallery();fillScaleSelect();updateStats()}
-async function renderGallery(){const g=$("#gallery"),withImg=S.recipes.filter(r=>r.hasImg);if(!withImg.length){g.innerHTML='<div class="empty">الصور التي ترفقها مع وصفاتك تظهر هنا.</div>';return}
- g.innerHTML=withImg.map(r=>`<figure data-act="open" data-id="${esc(r.id)}"><img data-own="${esc(r.id)}" alt=""><figcaption>${esc(r.name)}</figcaption></figure>`).join("");hydrate(g)}
-
-/* ===================== ENCYCLOPEDIA ===================== */
-function encyIndex(){const out=[];ENCY.forEach(sec=>{(sec.items||[]).forEach(it=>out.push({sec:sec.title,key:sec.key,title:it[0],text:it.length>2?`${it[1]} — النسبة ${it[2]}، الطحن ${it[3]}، الوقت ${it[4]}، الحرارة ${it[5]}`:it[1]}));if(sec.table)sec.table.rows.forEach(r=>out.push({sec:sec.title,key:sec.key,title:r[0],text:`درجة الطحن: ${r[1]} (${r[2]})`}));if(sec.trouble)sec.trouble.forEach(r=>out.push({sec:sec.title,key:sec.key,title:r[0],text:`${r[1]} ← ${r[2]}`}))});return out}
-function encyCard(it,q,tag){if(it.length>2)return`<article class="card ecard"><span class="tag">${tag}</span><h3>${hl(it[0],q)}</h3><p>${hl(it[1],q)}</p><div class="kv"><span><i>النسبة</i> ${esc(it[2])}</span><span><i>الطحن</i> ${esc(it[3])}</span><span><i>الوقت</i> ${esc(it[4])}</span><span><i>الحرارة</i> ${esc(it[5])}</span></div></article>`;
- return`<article class="card ecard"><span class="tag">${tag}</span><h3>${hl(it[0],q)}</h3><p>${hl(it[1],q)}</p></article>`}
-function renderEncy(){const q=$("#encySearch").value,ts=terms(q);$("#encyJump").innerHTML=ENCY.map(s=>`<button data-act="ency" data-key="${s.key}">${s.title}</button>`).join("");
- $("#encyBody").innerHTML=ENCY.map(sec=>{const items=(sec.items||[]).filter(it=>matches(it.join(" "),ts));const rows=sec.table?sec.table.rows.filter(r=>matches(r.join(" "),ts)):[];const tr=sec.trouble?sec.trouble.filter(r=>matches(r.join(" "),ts)):[];
-  if(ts.length&&!items.length&&!rows.length&&!tr.length)return"";
-  let h=`<h3 class="sub" id="ency-${sec.key}">${sec.title}</h3>`;
-  if(rows.length)h+=`<div class="box scroll" style="margin-bottom:12px"><table class="tbl"><thead><tr>${sec.table.head.map(x=>`<th>${x}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${hl(c,q)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  if(items.length)h+=`<div class="grid">${items.map(it=>encyCard(it,q,"COFFEE KNOWLEDGE")).join("")}</div>`;
-  if(tr.length)h+=`<div class="box scroll" style="margin-top:12px"><b style="color:var(--gold)">تشخيص الطعم وتصحيحه</b><table class="tbl trouble" style="margin-top:6px"><thead><tr><th>الحالة</th><th>العلامات</th><th>الحل</th></tr></thead><tbody>${tr.map(r=>`<tr>${r.map(c=>`<td>${hl(c,q)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-  return h}).join("")||'<div class="empty">لا توجد نتائج في الموسوعة.</div>'}
-$("#encySearch").addEventListener("input",renderEncy);
-
-/* ===================== TOOLS ===================== */
-const UNITS={vol:{ml:["مل",1],l:["لتر",1000],floz:["أونصة سائلة (fl oz)",29.5735],cup:["كوب (240 مل)",240],tbsp:["ملعقة كبيرة",15],tsp:["ملعقة صغيرة",5],shot:["شوت (30 مل)",30]},wt:{g:["غرام",1],kg:["كيلوغرام",1000],oz:["أونصة (oz)",28.3495],lb:["رطل (lb)",453.592]},temp:{c:["مئوي °م",0],f:["فهرنهايت °ف",0]}};
-function fillUnits(){const c=$("#ucCat").value,o=Object.entries(UNITS[c]).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join("");$("#ucFrom").innerHTML=o;$("#ucTo").innerHTML=o;$("#ucTo").selectedIndex=c==="vol"?2:1;
- const ref=c==="vol"?[["1 أونصة سائلة","29.6 مل"],["8 أونصة (كوب صغير)","237 مل"],["12 أونصة","355 مل"],["16 أونصة","473 مل"],["1 ملعقة كبيرة","15 مل"],["1 شوت","30 مل"]]:c==="wt"?[["1 أونصة","28.35 غ"],["1 رطل","453.6 غ"],["1 كغ","2.2 رطل"],["ملعقة بن ممسوحة","≈ 7 غ"]]:[["حليب مثالي","60–65°م / 140–149°ف"],["ماء التقطير","92–96°م / 198–205°ف"],["الماتشا","75–80°م / 167–176°ف"],["الغليان","100°م / 212°ف"]];
- $("#ucRef").innerHTML=`<thead><tr><th>مرجع سريع</th><th></th></tr></thead><tbody>${ref.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</tbody>`;convert()}
-function convert(){const c=$("#ucCat").value,v=Number($("#ucVal").value)||0,f=$("#ucFrom").value,t=$("#ucTo").value;let out;
- if(c==="temp"){const cv=f==="c"?v:(v-32)*5/9;out=t==="c"?cv:cv*9/5+32}else out=v*UNITS[c][f][1]/UNITS[c][t][1];
- $("#ucOut").textContent=(Math.round(out*100)/100)+" "+UNITS[c][t][0].replace(/\s*\(.*\)/,"")}
-$("#ucCat").addEventListener("change",fillUnits);["ucVal","ucFrom","ucTo"].forEach(i=>document.getElementById(i).addEventListener("input",convert));
-function ratioCalc(){$("#water").textContent=Math.round(num($("#dose").value)*num($("#ratio").value));const r2=num($("#ratio2").value);$("#dose2").textContent=r2?(num($("#water2").value)/r2).toFixed(1):"0";
- const d=num($("#eDose").value),y=num($("#eYield").value),x=d?y/d:0;$("#eRatio").textContent="1:"+x.toFixed(1);$("#eStyle").textContent=!d?"":x<1.5?"(ريستريتو)":x<=2.5?"(إسبريسو عادي)":"(لونغو)"}
-["dose","ratio","water2","ratio2","eDose","eYield"].forEach(i=>document.getElementById(i).addEventListener("input",ratioCalc));
-$("#ratioPresets").innerHTML=[["إسبريسو","2"],["آيروبرس","13"],["V60","16"],["كيمكس","15"],["فرنش برس","15"],["كولد برو","8"]].map(([n,v])=>`<button data-act="preset" data-v="${v}">${n} 1:${v}</button>`).join("");
-
-function fillScaleSelect(){const cur=$("#scRecipe").value;$("#scRecipe").innerHTML=`<optgroup label="المكتبة">${LIB.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join("")}</optgroup>${S.recipes.length?`<optgroup label="ريسيبياتي">${S.recipes.map(r=>`<option value="${esc(r.id)}">${esc(r.name)}</option>`).join("")}</optgroup>`:""}<option value="__custom">✎ مقادير أكتبها بنفسي</option>`;if(cur&&[...$("#scRecipe").options].some(o=>o.value===cur))$("#scRecipe").value=cur;renderScale()}
-function scaleLine(line,f){return line.replace(/[٠-٩]/g,d=>AR.indexOf(d)).replace(/(\d+(?:[.,]\d+)?)/g,m=>fmt(parseFloat(m.replace(",","."))*f))}
-function renderScale(){const id=$("#scRecipe").value,f=num($("#scFactor").value)||1;$("#scCustomWrap").style.display=id==="__custom"?"block":"none";let rows=[];
- if(id==="__custom")rows=$("#scCustom").value.split("\n").filter(s=>s.trim()).map(l=>[l,scaleLine(l,f)]);
- else{const r=findRecipe(id);if(!r)return;if(r.lib)rows=r.ing.map(([n,q,u])=>[q==null?n:`${n} ${q} ${u}`,q==null?`${n} ${u||""}`:`${n} <b>${fmt(q*f)}</b> ${u}`]);else rows=ingLines(r).map(l=>[l,esc(scaleLine(l,f))]);
-  if(r.size)rows.push([`حجم الكوب ${r.size} مل`,`إجمالي الحجم <b>${fmt(r.size*f)}</b> مل`])}
- $("#scOut").innerHTML=rows.length?`<thead><tr><th>الأصل</th><th>بعد التعديل ×${fmt(f)}</th></tr></thead><tbody>${rows.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${b.includes("<b>")?b:esc(b)}</td></tr>`).join("")}</tbody>`:""}
-function syncFactor(){const b=num($("#scBase").value),t=num($("#scTarget").value);if(b)$("#scFactor").value=fmt(t/b);renderScale()}
-$("#scBase").addEventListener("input",syncFactor);$("#scTarget").addEventListener("input",syncFactor);$("#scFactor").addEventListener("input",renderScale);$("#scRecipe").addEventListener("change",renderScale);$("#scCustom").addEventListener("input",renderScale);
-
-let tmStart=0,tmAcc=0,tmRun=null;const tmFmt=ms=>{const s=ms/1000,m=Math.floor(s/60);return String(m).padStart(2,"0")+":"+(s%60).toFixed(1).padStart(4,"0")};
-function tmTick(){$("#tmDisp").textContent=tmFmt(tmAcc+(tmRun?Date.now()-tmStart:0))}
-$("#tmStart").addEventListener("click",()=>{if(tmRun){tmAcc+=Date.now()-tmStart;clearInterval(tmRun);tmRun=null;$("#tmStart").textContent="استمرار"}else{tmStart=Date.now();tmRun=setInterval(tmTick,100);$("#tmStart").textContent="إيقاف"}tmTick()});
-$("#tmLap").addEventListener("click",()=>{const t=tmAcc+(tmRun?Date.now()-tmStart:0);if(!t)return;$("#tmLaps").insertAdjacentHTML("afterbegin",`<div>⏱ ${tmFmt(t)}</div>`)});
-$("#tmReset").addEventListener("click",()=>{clearInterval(tmRun);tmRun=null;tmAcc=0;$("#tmStart").textContent="ابدأ";$("#tmLaps").innerHTML="";tmTick()});
-
-/* ===================== COST ===================== */
-const DEF_COST=()=>[{n:"بن مختص",p:120,s:1000,u:18,unit:"غ"},{n:"حليب",p:7,s:1000,u:200,unit:"مل"},{n:"شراب / صوص",p:45,s:750,u:15,unit:"مل"},{n:"كوب وغطاء ومصاصة",p:30,s:50,u:1,unit:"حبة"}];
-let costRows=DEF_COST();
-const rowCost=r=>num(r.s)?num(r.p)/num(r.s)*num(r.u):0;
-function renderCostRows(){$("#costRows").innerHTML=costRows.map((r,i)=>`<tr><td><input data-i="${i}" data-f="n" value="${esc(r.n)}" style="min-width:120px"></td><td><input type="number" step=".01" min="0" data-i="${i}" data-f="p" value="${r.p}" style="width:90px"></td><td><input type="number" step="any" min="0" data-i="${i}" data-f="s" value="${r.s}" style="width:85px"></td><td><input type="number" step="any" min="0" data-i="${i}" data-f="u" value="${r.u}" style="width:85px"></td><td><input data-i="${i}" data-f="unit" value="${esc(r.unit)}" style="width:62px"></td><td class="num" data-rc="${i}">${sar(rowCost(r))}</td><td><button class="btn danger" data-act="delRow" data-i="${i}" title="حذف" style="padding:5px 9px">✕</button></td></tr>`).join("");calcCost()}
-$("#costRows").addEventListener("input",e=>{const t=e.target,i=+t.dataset.i,f=t.dataset.f;if(f==null)return;costRows[i][f]=["n","unit"].includes(f)?t.value:Number(t.value);const c=$(`[data-rc="${i}"]`);if(c)c.textContent=sar(rowCost(costRows[i]));calcCost()});
-$("#addCostRow").addEventListener("click",()=>{costRows.push({n:"",p:0,s:1000,u:0,unit:"غ"});renderCostRows()});
-$("#resetCost").addEventListener("click",()=>{costRows=DEF_COST();$("#opCost").value=2;$("#sellPrice").value=18;$("#targetPct").value=30;$("#vatIncl").checked=true;renderCostRows()});
-function calcCost(){const ing=costRows.reduce((a,r)=>a+rowCost(r),0),op=num($("#opCost").value),total=ing+op,price=num($("#sellPrice").value),vat=$("#vatIncl").checked,net=vat?price/1.15:price,profit=net-total,tp=num($("#targetPct").value)||30;
- $("#rIng").textContent=sar(ing);$("#rTotal").textContent=sar(total);$("#rNet").textContent=sar(net);const p=$("#rProfit");p.textContent=sar(profit);p.classList.toggle("neg",profit<0);p.classList.toggle("pos",profit>0);
- $("#rMargin").textContent=(net?profit/net*100:0).toFixed(1)+"%";$("#rPct").textContent=(net?ing/net*100:0).toFixed(1)+"%";$("#rSuggest").textContent=sar(ing/(tp/100)*(vat?1.15:1));
- $("#rSuggest").parentElement.querySelector("p").textContent=`سعر البيع المقترح (تكلفة مكونات ${tp}%${vat?" شامل الضريبة":""})`}
-["opCost","sellPrice","targetPct","vatIncl"].forEach(i=>document.getElementById(i).addEventListener("input",calcCost));
-const PACK={"غ":1000,"مل":1000};
-function parseIng(line){const l=line.replace(/[٠-٩]/g,d=>AR.indexOf(d));const m=l.match(/(\d+(?:[.,]\d+)?)\s*(غرام|غ|جم|g|مل|ml|حبة|حبات|قطع|ورقة|ملعقة)?/i);if(!m)return{n:l.trim(),p:0,s:1,u:1,unit:"حبة"};let u=(m[2]||"").toLowerCase();u=/غ|جم|g/.test(u)?"غ":/مل|ml/.test(u)?"مل":u||"حبة";return{n:l.replace(m[0],"").replace(/[:\-–]/g,"").trim()||l.trim(),p:0,s:PACK[u]||1,u:parseFloat(m[1].replace(",",".")),unit:u}}
-function costFromRecipe(id){const r=findRecipe(id);if(!r)return;costRows=r.lib?r.ing.filter(x=>x[1]!=null).map(([n,q,u])=>({n,p:0,s:PACK[u]||1,u:q,unit:u||"حبة"})):ingLines(r).map(parseIng);
- costRows.push({n:"كوب وغطاء",p:30,s:50,u:1,unit:"حبة"});$("#costName").value=r.name;activate("cost");renderCostRows();toast("أدخل سعر كل عبوة لحساب التكلفة")}
-$("#saveCost").addEventListener("click",()=>{const name=$("#costName").value.trim()||"حسبة بدون اسم";S.costs.unshift({id:uid(),name,rows:JSON.parse(JSON.stringify(costRows)),op:num($("#opCost").value),price:num($("#sellPrice").value),vat:$("#vatIncl").checked,target:num($("#targetPct").value),date:Date.now()});save("costs");renderCostList();toast("تم حفظ الحسبة")});
-function loadCost(id){const c=S.costs.find(x=>x.id===id);if(!c)return;costRows=JSON.parse(JSON.stringify(c.rows));$("#opCost").value=c.op;$("#sellPrice").value=c.price;$("#vatIncl").checked=c.vat;$("#targetPct").value=c.target||30;$("#costName").value=c.name;renderCostRows();window.scrollTo({top:0,behavior:"smooth"})}
-function renderCostList(){const el=$("#costList");if(!S.costs.length){el.innerHTML='<div class="empty">لا توجد حسبات محفوظة.</div>';return}
- el.innerHTML=S.costs.map(c=>{const ing=c.rows.reduce((a,r)=>a+rowCost(r),0),total=ing+c.op,net=c.vat?c.price/1.15:c.price,pr=net-total;return`<article class="card"><h3>${esc(c.name)}</h3><div class="kv"><span><i>التكلفة</i> ${sar(total)}</span><span><i>البيع</i> ${sar(c.price)}</span><span><i>الربح</i> ${sar(pr)}</span><span><i>الهامش</i> ${(net?pr/net*100:0).toFixed(1)}%</span></div><div class="actions"><button class="btn" data-act="loadCost" data-id="${c.id}">فتح</button><button class="btn danger" data-act="delCost" data-id="${c.id}">حذف</button></div></article>`}).join("")}
-
-/* ===================== NOTES ===================== */
-function renderNotes(){const el=$("#notesList");el.innerHTML=S.notes.length?S.notes.map(n=>`<article class="card"><h3>${esc(n.title)}</h3><p>${esc(n.text)}</p><div class="actions"><button class="btn danger" data-act="delNote" data-id="${esc(n.id)}">حذف</button></div></article>`).join(""):'<div class="empty">لا توجد ملاحظات محفوظة بعد.</div>';updateStats()}
-$("#saveNote").addEventListener("click",()=>{const title=$("#noteTitle").value.trim(),text=$("#noteText").value.trim();if(!title||!text){alert("اكتب عنوان الملاحظة ومحتواها أولًا.");return}S.notes.unshift({id:uid(),title,text,date:Date.now()});save("notes");$("#noteTitle").value="";$("#noteText").value="";renderNotes();toast("تم حفظ الملاحظة")});
-
-/* ===================== SEARCH ===================== */
-function fillTypeFilter(){const cur=$("#sType").value;$("#sType").innerHTML=`<option value="">كل الأنواع</option>`+typesInUse().map(t=>`<option>${esc(t)}</option>`).join("");if(cur)$("#sType").value=cur}
-function runSearch(){const q=$("#sq").value,ts=terms(q),type=$("#sType").value,favOnly=$("#sFav").checked,sc=new Set($$(".sScope:checked").map(c=>c.value));let html="",total=0;
- const rf=r=>(!type||r.type===type)&&(!favOnly||S.favs.includes(r.id))&&matches(recipeText(r),ts);
- if(sc.has("lib")){const l=LIB.map(r=>({...r,lib:true})).filter(rf);total+=l.length;if(l.length)html+=`<h3 class="sub">وصفات المكتبة (${l.length})</h3><div class="grid r">${l.map(r=>recipeCard(r,q)).join("")}</div>`}
- if(sc.has("mine")){const l=S.recipes.filter(rf);total+=l.length;if(l.length)html+=`<h3 class="sub">وصفاتي (${l.length})</h3><div class="grid r">${l.map(r=>recipeCard(r,q)).join("")}</div>`}
- if(sc.has("ency")&&!type&&!favOnly&&ts.length){const l=encyIndex().filter(x=>matches(x.title+" "+x.text,ts));total+=l.length;if(l.length)html+=`<h3 class="sub">الموسوعة (${l.length})</h3><div class="grid">${l.map(x=>`<article class="card"><span class="tag">${esc(x.sec)}</span><h3>${hl(x.title,q)}</h3><p>${hl(x.text,q)}</p></article>`).join("")}</div>`}
- if(sc.has("notes")&&!type&&!favOnly&&ts.length){const l=S.notes.filter(n=>matches(n.title+" "+n.text,ts));total+=l.length;if(l.length)html+=`<h3 class="sub">ملاحظاتي (${l.length})</h3><div class="grid">${l.map(n=>`<article class="card"><h3>${hl(n.title,q)}</h3><p>${hl(n.text,q)}</p></article>`).join("")}</div>`}
- $("#sResults").innerHTML=(q||type||favOnly?`<p class="small">${total} نتيجة</p>`:"")+(html||'<div class="empty">لا توجد نتائج. جرّب كلمة أخرى أو غيّر الفلاتر.</div>');hydrate($("#sResults"))}
-$("#sq").addEventListener("input",runSearch);$("#sType").addEventListener("change",runSearch);$("#sFav").addEventListener("change",runSearch);$$(".sScope").forEach(c=>c.addEventListener("change",runSearch));
-$("#globalSearch").addEventListener("keydown",e=>{if(e.key==="Enter"){$("#sq").value=e.target.value;activate("search")}});
-$("#globalSearch").addEventListener("input",e=>{if(e.target.value.trim().length>=2){$("#sq").value=e.target.value;activate("search");$("#sq").focus();e.target.value=""}});
-
-/* ===================== ACCOUNT ===================== */
-function renderAccount(){const b=$("#accountBody"),u=S.user;
- const tools=`<div class="box" style="margin-top:14px"><h3 style="margin:0 0 6px;color:var(--gold)">النسخ الاحتياطي ونقل البيانات</h3><p class="small" style="margin:0">صدّر وصفاتك وصورك ومفضلتك وملاحظاتك في ملف واحد، ثم استورده على جهاز آخر أو متصفح آخر.</p><div class="actions"><button class="btn primary" id="expBtn">⬇ تصدير نسخة احتياطية</button><button class="btn" id="impBtn">⬆ استيراد نسخة</button></div></div>`;
- if(!u){b.innerHTML=`<div class="note" style="margin:0 0 14px">أنت تستخدم المكتبة كـ <b>ضيف</b>. أنشئ حسابًا شخصيًا لتكون لك وصفاتك ومفضلتك وصورك الخاصة، ويمكن لأكثر من شخص استخدام نفس الجهاز بحسابات منفصلة.</div>
- <div class="cols2"><div class="box"><h3 style="margin:0;color:var(--gold)">تسجيل الدخول</h3><form id="loginForm"><label>اسم المستخدم</label><input id="lUser" required autocomplete="username" dir="ltr"><label>كلمة المرور</label><input id="lPass" type="password" required autocomplete="current-password" dir="ltr"><div class="actions"><button class="btn primary">دخول</button></div></form></div>
- <div class="box"><h3 style="margin:0;color:var(--gold)">إنشاء حساب جديد</h3><form id="regForm"><label>الاسم الظاهر</label><input id="rDisp" required placeholder="مثال: أبو دحيم"><label>اسم المستخدم (بالإنجليزية)</label><input id="rUser" required pattern="[A-Za-z0-9_]{3,20}" title="3–20 حرفًا إنجليزيًا أو أرقام أو _" dir="ltr" autocomplete="username"><label>كلمة المرور (4 أحرف على الأقل)</label><input id="rPass" type="password" required minlength="4" dir="ltr" autocomplete="new-password"><label class="check" style="margin-top:10px"><input type="checkbox" id="rMove" checked> انقل وصفاتي الحالية (كضيف) إلى الحساب الجديد</label><div class="actions"><button class="btn primary">إنشاء الحساب</button></div></form></div></div>${tools}
- <p class="small" style="margin-top:12px">ملاحظة: الحسابات والبيانات تُحفظ بأمان داخل هذا المتصفح على هذا الجهاز. لنقلها إلى جهاز آخر استخدم التصدير والاستيراد.</p>`}
- else{b.innerHTML=`<div class="box"><div style="display:flex;align-items:center;gap:14px"><span class="ava" style="width:58px;height:58px;border-radius:50%;background:var(--gold);color:#20160c;display:grid;place-items:center;font-size:24px;font-weight:bold">${esc(u.name[0]||"?")}</span><div><h3 style="margin:0;color:var(--gold)">${esc(u.name)}</h3><div class="small" dir="ltr" style="text-align:right">@${esc(u.username)} · عضو منذ ${new Date(u.created).toLocaleDateString("ar-SA")}</div></div></div>
- <div class="res-grid"><div class="card"><p>وصفاتي</p><div class="result">${S.recipes.length}</div></div><div class="card"><p>المفضلة</p><div class="result">${S.favs.length}</div></div><div class="card"><p>الصور المحفوظة</p><div class="result">${S.recipes.filter(r=>r.hasImg).length}</div></div><div class="card"><p>الملاحظات</p><div class="result">${S.notes.length}</div></div><div class="card"><p>الحسبات المالية</p><div class="result">${S.costs.length}</div></div></div>
- <div class="actions"><button class="btn primary" id="logoutBtn">تسجيل الخروج</button><button class="btn" id="pwBtn">تغيير كلمة المرور</button><button class="btn danger" id="delAccBtn">حذف الحساب</button></div></div>${tools}`}
- bindAccount()}
-function bindAccount(){
- const lf=$("#loginForm");if(lf)lf.addEventListener("submit",async e=>{e.preventDefault();const un=$("#lUser").value.trim().toLowerCase(),u=S.users.find(x=>x.username===un);if(!u||await hashPw($("#lPass").value,u.salt)!==u.hash){toast("اسم المستخدم أو كلمة المرور غير صحيحة");return}setSession(u.id);await loadSession();toast("أهلًا "+u.name);activate("home")});
- const rf=$("#regForm");if(rf)rf.addEventListener("submit",async e=>{e.preventDefault();const un=$("#rUser").value.trim().toLowerCase();if(S.users.some(x=>x.username===un)){toast("اسم المستخدم مستخدم مسبقًا");return}
-  const salt=uid(),u={id:"u_"+uid(),username:un,name:$("#rDisp").value.trim(),salt,hash:await hashPw($("#rPass").value,salt),created:Date.now()};S.users.push(u);await DB.set("users",S.users);
-  if($("#rMove").checked){for(const k of KEYS){await DB.set(u.id+":"+k,S[k]);await DB.set("guest:"+k,[])}for(const r of S.recipes)if(r.hasImg){const d=await DB.get("img:guest:"+r.id);if(d){await DB.set("img:"+u.id+":"+r.id,d);await DB.del("img:guest:"+r.id)}}}
-  setSession(u.id);await loadSession();toast("تم إنشاء حسابك، أهلًا "+u.name);activate("home")});
- const lo=$("#logoutBtn");if(lo)lo.addEventListener("click",async()=>{setSession(null);await loadSession();toast("تم تسجيل الخروج")});
- const pw=$("#pwBtn");if(pw)pw.addEventListener("click",async()=>{const o=prompt("كلمة المرور الحالية:");if(o==null)return;const u=S.user;if(await hashPw(o,u.salt)!==u.hash){toast("كلمة المرور الحالية غير صحيحة");return}const n=prompt("كلمة المرور الجديدة (4 أحرف على الأقل):");if(!n||n.length<4){toast("كلمة المرور قصيرة");return}u.salt=uid();u.hash=await hashPw(n,u.salt);await DB.set("users",S.users);toast("تم تغيير كلمة المرور")});
- const da=$("#delAccBtn");if(da)da.addEventListener("click",async()=>{if(!confirm("سيتم حذف الحساب وجميع وصفاته وصوره نهائيًا من هذا الجهاز. هل أنت متأكد؟"))return;const u=S.user;for(const r of S.recipes)await DB.del("img:"+u.id+":"+r.id);for(const k of KEYS)await DB.del(u.id+":"+k);S.users=S.users.filter(x=>x.id!==u.id);await DB.set("users",S.users);setSession(null);await loadSession();toast("تم حذف الحساب")});
- $("#expBtn").addEventListener("click",exportData);$("#impBtn").addEventListener("click",()=>$("#importFile").click());
-}
-async function exportData(){const images={};for(const r of S.recipes)if(r.hasImg){const d=await DB.get("img:"+S.uid+":"+r.id);if(d)images[r.id]=d}
- const data={app:"barista-library",version:2,exported:new Date().toISOString(),user:S.user?{username:S.user.username,name:S.user.name}:null,recipes:S.recipes,notes:S.notes,favs:S.favs,costs:S.costs,images};
- const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:"application/json"}));a.download=`barista-backup-${(S.user&&S.user.username)||"guest"}-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();toast("تم تصدير النسخة الاحتياطية")}
-$("#importFile").addEventListener("change",async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const d=JSON.parse(await f.text());if(d.app!=="barista-library")throw 0;
- let added=0;const ids=new Set(S.recipes.map(r=>r.id));for(const r of d.recipes||[])if(!ids.has(r.id)){S.recipes.push(r);added++;if(d.images&&d.images[r.id])await DB.set("img:"+S.uid+":"+r.id,d.images[r.id])}
- const nids=new Set(S.notes.map(n=>n.id));(d.notes||[]).forEach(n=>{if(!nids.has(n.id))S.notes.push(n)});S.favs=[...new Set([...S.favs,...(d.favs||[])])];const cids=new Set(S.costs.map(c=>c.id));(d.costs||[]).forEach(c=>{if(!cids.has(c.id))S.costs.push(c)});
- for(const k of KEYS)await save(k);imgCache.clear();renderAll();toast(`تم الاستيراد: ${added} وصفة جديدة`)}catch(err){alert("الملف غير صالح. اختر ملف نسخة احتياطية من هذه المكتبة.")}});
-
-/* ===================== HOME / RENDER ===================== */
-function renderHome(){$("#homeCards").innerHTML=[
- ["مكتبة الوصفات",`${LIB.length} وصفة بالصور والمقادير وخطوات التحضير وأزمنة الاستخلاص.`,"library"],
- ["موسوعة القهوة","الأصناف، المعالجة، التحميص، الطحن، طرق التحضير، واستخلاص الإسبريسو.","ency"],
- ["أدوات احترافية","تحويل الوحدات، نسبة القهوة للماء، تكبير الوصفات، ومؤقت الاستخلاص.","tools"],
- ["الحاسبة المالية","تكلفة المكونات، تكلفة الكوب، سعر البيع، صافي الربح وهامش الربح.","cost"],
- ["ريسيبياتي الخاصة","أضف وصفاتك مع صورها واحفظ المقادير والخطوات والملاحظات.","recipes"],
- ["بحث متقدم","ابحث في الوصفات والمكونات والملاحظات مع فلترة حسب نوع المشروب.","search"],
- ["التعلم والتدريب","طوّر مهاراتك في القهوة والمشروبات.","learn"],
- ["حسابي الشخصي","حساب خاص بك للمفضلة والوصفات والصور، مع نسخ احتياطي.","account"]
- ].map(x=>`<article class="card"><span class="tag">YOUR LIBRARY</span><h3>${x[0]}</h3><p>${x[1]}</p><div class="actions"><button class="btn" data-act="jump" data-sec="${x[2]}">افتح القسم ←</button></div></article>`).join("");
- const feat=["lib-spanish","lib-v60","lib-cappuccino","lib-mojito"].map(findRecipe).filter(Boolean);grid($("#homeFeatured"),feat,"","")}
-function updateStats(){$("#libCount").textContent=LIB.length;$("#recipeCount").textContent=S.recipes.length;$("#favCount").textContent=S.favs.length;$("#noteCount").textContent=S.notes.length}
-function renderUser(){const n=S.user?S.user.name:"ضيف";$("#chipName").textContent=n;$("#chipAva").textContent=n[0]||"ض";$("#chipHint").textContent=S.user?"حسابي":"تسجيل الدخول";$("#welcomeTitle").textContent=S.user?`مرحبًا ${n} في مكتبتك الشخصية`:"مرحبًا بك في مكتبتك الشخصية";$("#saveHint").textContent=S.user?`تُحفظ وصفاتك وصورها في حسابك (${S.user.name}) على هذا الجهاز.`:"أضف وصفاتك بنفسك مع صورة المشروب وبيانات الاستخلاص. أنشئ حسابًا من «حسابي» لتكون وصفاتك خاصة بك."}
-function renderAll(){renderUser();renderHome();renderLibrary();renderMine();renderNotes();renderCostList();renderFavs();fillTypeFilter();renderAccount();updateStats();if($("#search").classList.contains("active"))runSearch()}
-
-$("#learnCards").innerHTML=LEARN.map(x=>`<article class="card"><span class="tag">TRAINING</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></article>`).join("");
-renderEncy();fillUnits();ratioCalc();renderCostRows();
-migrateOld().then(loadSession);
-</script>
+<script src="data.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

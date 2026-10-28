@@ -1,4 +1,10 @@
-# Barista Library · مكتبة الباريستا
-Arabic barista & bartender library: recipe library with photos, cost calculator, coffee encyclopedia, professional tools, advanced search and personal accounts.
+# Barista · باريستا
+Bilingual (Arabic / English) specialty-coffee, barista & bartender library — installable as an app (PWA) on iPhone and Mac.
 
-Static site — deploy on Cloudflare Pages with no build command and output directory `/`.
+**Features:** recipe library with photos and extraction data · coffee encyclopedia · equipment & troubleshooting · smart calculators (dose & extraction log with comparison, brew ratios, large batches, recipe scaling, unit conversion) · ingredient prices, drink cost, gross/net profit and sales projection · personal recipes, favorites and photos · training lessons with images and files · advanced search with filters and sorting · local accounts with optional password lock · backup export/import.
+
+**Storage:** all user data is saved in the browser on each device (IndexedDB). There is no server or database; move data between devices with Export / Import in Account & settings.
+
+**Deploy:** static site — Cloudflare Pages with no build command and output directory `/`.
+
+Files: `index.html` (layout & styles), `data.js` (built-in content), `app.js` (logic), `sw.js` + `manifest.webmanifest` + `icons/` (app install).
