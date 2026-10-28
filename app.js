@@ -127,7 +127,7 @@ function setSaveState(s){const el=$("#saveState");el.className="saveState"+(s===
 
 /* ============ STATE ============ */
 const S={uid:"guest",user:null,users:[],recipes:[],notes:[],favs:[],costs:[],pantry:[],shots:[],lessons:[],profile:{}};
-const KEYS=["recipes","notes","favs","costs","pantry","shots","lessons","profile"];
+const KEYS=["recipes","notes","favs","costs","pantry","shots","lessons","profile","recent","quiz"];
 const imgCache=new Map();let avatarData=null;
 async function save(k){setSaveState("saving");try{await DB.set(S.uid+":"+k,S[k]);setSaveState("ok")}catch(e){setSaveState("err");toast(t("ssErr"))}updateStats()}
 async function hashPw(pw,salt){const s=salt+"|"+pw;try{const enc=new TextEncoder();const key=await crypto.subtle.importKey("raw",enc.encode(pw),"PBKDF2",false,["deriveBits"]);const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:enc.encode(salt),iterations:120000,hash:"SHA-256"},key,256);return"p2:"+[...new Uint8Array(bits)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return"h"+h}}
@@ -137,7 +137,7 @@ const TYPE_MAP={"قهوة مختصة":"specialty","إسبريسو":"espresso","�
 async function loadSession(){
  S.users=(await DB.get("users"))||[];
  S.users.forEach(u=>{if(u.id==="u_admin"&&!u.role)u.role="admin"});S.content=(await DB.get("content"))||{};S.settings=(await DB.get("settings"))||{allowSignup:false,requireLogin:false};S.user=S.users.find(u=>u.id===getSid())||null;S.uid=S.user?S.user.id:"guest";
- for(const k of KEYS)S[k]=(await DB.get(S.uid+":"+k))||(k==="profile"?{}:[]);
+ for(const k of KEYS)S[k]=(await DB.get(S.uid+":"+k))||(k==="profile"||k==="quiz"?{}:[]);
  S.recipes.forEach(r=>{if(TYPE_MAP[r.type])r.type=TYPE_MAP[r.type]});
  avatarData=(await DB.get("avatar:"+S.uid))||null;imgCache.clear();
  renderAll();checkLock();setSaveState("ok");
@@ -459,7 +459,7 @@ function bindAccount(){const on=(id,ev,fn)=>{const el=$("#"+id);if(el)el.addEven
  on("loginForm","submit",async e=>{e.preventDefault();if(throttled())return;const un=$("#lUser").value.trim().toLowerCase(),u=S.users.find(x=>x.username===un);if(!u||await hashPw($("#lPass").value,u.salt)!==u.hash){failAttempt();toast(t("badLogin"));return}attempts=0;setSession(u.id);await loadSession();toast(t("welcomeBack",{n:u.name}));activate("home")});
  on("regForm","submit",async e=>{e.preventDefault();if(!signupOpen()){toast(t("signupClosed"));return}const un=$("#rUser").value.trim().toLowerCase();if(!/^[a-z0-9_]{3,20}$/.test(un)){toast(t("userBad"));return}if(S.users.some(x=>x.username===un)){toast(t("userTaken"));return}const pw=$("#rPass").value;if(pw.length<6){toast(t("passShort"));return}if(pw!==$("#rPass2").value){toast(t("passMismatch"));return}
   const salt=uid()+uid(),u={id:"u_"+uid(),username:un,name:$("#rDisp").value.trim(),salt,hash:await hashPw(pw,salt),created:Date.now(),lock:false,role:S.users.some(x=>x.role==="admin")?"user":"admin"};S.users.push(u);await saveUsers();
-  if($("#rMove").checked){for(const k of KEYS){await DB.set(u.id+":"+k,S[k]);await DB.set("guest:"+k,k==="profile"?{}:[])}
+  if($("#rMove").checked){for(const k of KEYS){await DB.set(u.id+":"+k,S[k]);await DB.set("guest:"+k,k==="profile"||k==="quiz"?{}:[])}
    const mv=async(a,bk)=>{const d=await DB.get(a);if(d!=null){await DB.set(bk,d);await DB.del(a)}};for(const r of S.recipes)if(r.hasImg)await mv("img:guest:"+r.id,"img:"+u.id+":"+r.id);for(const l of S.lessons){for(const i of l.imgs||[])await mv("limg:guest:"+i,"limg:"+u.id+":"+i);for(const f of l.files||[])await mv("lfile:guest:"+f.id,"lfile:"+u.id+":"+f.id)}await mv("avatar:guest","avatar:"+u.id)}
   setSession(u.id);await loadSession();toast(t("accCreated",{n:u.name}));activate("home")});
  on("logoutBtn","click",async()=>{setSession(null);await loadSession();toast(t("loggedOut"))});
