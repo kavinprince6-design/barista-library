@@ -150,6 +150,11 @@ async function migrateOld(){
  await DB.set("migratedV1",true);
 }
 
+/* Pre-made Admin account (created once per device). Only a salted PBKDF2 hash is stored here. */
+async function seedAdmin(){if(await DB.get("seededAdmin"))return;const users=(await DB.get("users"))||[];
+ if(!users.some(u=>u.username==="admin")){const u={id:"u_admin",username:"admin",name:"Admin",salt:"069871c5efcbf3e6c82410c6",hash:"p2:8a2f9774e2c6b1dd37ac9119b71e5425646303b29769c391e1538c88d7eb0295",created:Date.now(),lock:true};users.push(u);await DB.set("users",users);
+  if(!getSid()){for(const k of KEYS){const g=await DB.get("guest:"+k);if(g!=null)await DB.set(u.id+":"+k,g)}try{localStorage.setItem("bb_session",u.id)}catch(e){}}}
+ await DB.set("seededAdmin",true)}
 /* ============ NAV & LANGUAGE ============ */
 const NAV=[["home","⌂","navHome"],["library","📖","navLibrary"],["ency","◉","navEncy"],["equip","⚙","navEquip"],["tools","⚖","navTools"],["cost","▦","navCost"],["recipes","▤","navRecipes"],["favs","♥","navFavs"],["search","⌕","navSearch"],["learn","✧","navLearn"],["notes","✎","navNotes"],["account","👤","navAccount"]];
 let current="home";
@@ -498,5 +503,5 @@ function renderAll(){applyLang();renderUser();renderHome();renderLibrary();rende
  $("#saveRecipeBtn").textContent=$("#editId").value?t("bSaveChanges"):t("bSaveRecipe");$("#lessonFormTitle").textContent=$("#lsId").value?t("editLesson"):t("addLesson");$("#tmStart").textContent=tmRun?t("bStop"):tmAcc?t("bContinue"):t("bStart")}
 
 applyLang();
-migrateOld().then(loadSession);
+migrateOld().then(seedAdmin).then(loadSession);
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
