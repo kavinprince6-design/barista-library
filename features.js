@@ -241,3 +241,36 @@ const _activate2=activate;activate=function(id){if(id!=="library"&&libColl&&curr
 const _renderAll=renderAll;renderAll=function(){_renderAll();renderMake();renderFlavor(false);renderQuiz();renderDash()};
 const _renderHomeCards=renderHome;renderHome=function(){_renderHomeCards();$("#homeCards").insertAdjacentHTML("beforeend",[["navDash","homeDash","dash"],["navMake","homeMake","make"],["navFlavor","homeFlavor","flavor"],["navQuiz","homeQuiz","quiz"]].map(x=>`<article class="card"><span class="tag">NEW</span><h3>${t(x[0])}</h3><p>${t(x[1])}</p><div class="actions"><button class="btn" data-act="jump" data-sec="${x[2]}">${t("openSec")} ${LANG==="ar"?"←":"→"}</button></div></article>`).join(""))};
 if(document.querySelector("#homeCards").innerHTML)renderAll();else applyLang();
+
+/* ---------- luxury sidebar navigation ---------- */
+Object.assign(L.ar,{grpDiscover:"اكتشف",grpTools:"الأدوات",grpMine:"مساحتي"});Object.assign(L.en,{grpDiscover:"Discover",grpTools:"Tools",grpMine:"My space"});
+const NAV_ICONS={home:"M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z",dash:"M4 20V11M10 20V5M16 20v-6M2 20h20",library:"M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2zM22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z",make:"M3 10h18l-2 10H5zM8 10l4-6 4 6M9 14v3M15 14v3",ency:"M12 3c4 0 7 4 7 9s-3 9-7 9-7-4-7-9 3-9 7-9zM12 3c-2.5 3 2.5 6 0 9s2.5 6 0 9",flavor:"M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4",equip:"M5 3h14v6H5zM8 9v3h8V9M6 12h12M9 15h6v5H9zM12 3v2",tools:"M6 2h12a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM8 6h8v3H8zM8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01",cost:"M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20zM15 9a3 3 0 0 0-3-2c-1.7 0-3 1-3 2.5S10.3 12 12 12s3 1 3 2.5S13.7 17 12 17a3 3 0 0 1-3-2M12 5v2M12 17v2",recipes:"M5 3h11l3 3v15H5zM9 8h6M9 12h6M9 16h4",favs:"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z",search:"M11 4a7 7 0 1 0 0 14a7 7 0 1 0 0-14zM21 21l-5-5",learn:"M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5M22 9v5",quiz:"M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18zM12 7a5 5 0 1 0 0 10a5 5 0 1 0 0-10zM12 11a1 1 0 1 0 0 2a1 1 0 1 0 0-2z",notes:"M4 20h4L19 9l-4-4L4 16zM14 6l4 4",account:"M12 12a4 4 0 1 0 0-8a4 4 0 1 0 0 8zM4 21c1-4 4.5-6 8-6s7 2 8 6"};
+const NAV_GROUPS=[["grpDiscover",["home","dash","library","make","ency","flavor","equip"]],["grpTools",["tools","cost","search"]],["grpMine",["recipes","favs","learn","quiz","notes","account"]]];
+renderNav=function(){const by=Object.fromEntries(NAV.map(n=>[n[0],n]));const used=new Set();
+ const btn=([id,,k])=>{used.add(id);return`<button data-tab="${id}" class="${id===current?"active":""}"><span class="ic"><svg viewBox="0 0 24 24"><path d="${NAV_ICONS[id]||NAV_ICONS.home}"/></svg></span><span class="lb">${t(k)}</span></button>`};
+ let h=NAV_GROUPS.map(([g,ids])=>`<div class="navgrp"><div class="glabel"><span>${t(g)}</span></div>${ids.filter(id=>by[id]).map(id=>btn(by[id])).join("")}</div>`).join("");
+ const rest=NAV.filter(n=>!used.has(n[0]));if(rest.length)h+=`<div class="navgrp">${rest.map(btn).join("")}</div>`;
+ $("#sideNav").innerHTML=h;$("#topTabs").innerHTML=NAV.map(([id,,k])=>`<button data-tab="${id}" class="${id===current?"active":""}">${t(k)}</button>`).join("")};
+document.querySelector(".profile").insertAdjacentHTML("afterend",`<div class="ornament" aria-hidden="true"><i></i><b>✦</b><i></i></div>`);
+document.querySelector(".profile").style.borderBottom="0";
+document.head.insertAdjacentHTML("beforeend",`<style>
+aside{background:linear-gradient(180deg,#16120e 0%,#0e0c0a 55%,#0b0a09 100%)!important;border-inline-end:0!important;position:sticky;scrollbar-width:thin;scrollbar-color:#4b3925 transparent}
+aside::after{content:"";position:absolute;top:0;bottom:0;inset-inline-end:0;width:1px;background:linear-gradient(180deg,transparent,#d3ad7666 20%,#d3ad7633 80%,transparent);pointer-events:none}
+aside::-webkit-scrollbar{width:5px}aside::-webkit-scrollbar-thumb{background:#4b3925;border-radius:9px}
+.profile{padding-bottom:6px!important}.profile h3{font-family:Georgia,"Times New Roman",serif;font-size:20px!important;letter-spacing:1px;color:#f1dcb8}.profile p{letter-spacing:1.5px;font-size:11px!important;color:#a8916f!important}
+.avatar{box-shadow:0 0 0 4px #0e0c0a,0 0 0 5px #d3ad7655!important}
+.ornament{display:flex;align-items:center;gap:10px;color:var(--gold);font-size:11px;padding:0 18px}.ornament i{flex:1;height:1px;background:linear-gradient(90deg,transparent,#d3ad7688)}.ornament i:last-child{background:linear-gradient(270deg,transparent,#d3ad7688)}
+.nav{gap:2px!important}.navgrp{display:grid;gap:3px}.navgrp+.navgrp{margin-top:8px}
+.glabel{display:flex;align-items:center;gap:8px;margin:6px 10px 4px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#8a6a42;font-family:Georgia,serif}.glabel::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#4b392588,transparent)}[dir=rtl] .glabel::after{background:linear-gradient(270deg,#4b392588,transparent)}[dir=rtl] .glabel{letter-spacing:1px;font-size:11px;font-family:Tahoma,Arial}
+.nav button{position:relative;padding:6px 10px!important;gap:12px!important;border:1px solid transparent!important;border-radius:12px!important;color:#e6d8c3!important;font-size:14px;box-shadow:none!important;transition:background .3s,color .3s,transform .3s,border-color .3s!important}
+.nav button span.ic{width:32px;min-width:32px;height:32px;text-align:initial;flex:none;border-radius:50%;display:grid;place-items:center;border:1px solid #4b3925;background:radial-gradient(circle at 30% 25%,#2a2118,#14110e);transition:all .3s}
+.nav .ic svg{width:16px;height:16px;fill:none;stroke:#d3ad76;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.nav button:hover{background:linear-gradient(90deg,#d3ad7614,transparent)!important;transform:translateX(3px)}[dir=rtl] .nav button:hover{background:linear-gradient(270deg,#d3ad7614,transparent)!important;transform:translateX(-3px)}
+.nav button:hover .ic{border-color:#d3ad76;box-shadow:0 0 12px -2px #d3ad7666}
+.nav button.active{background:linear-gradient(90deg,#d3ad762b,#d3ad7608)!important;border-color:#6a513699!important;color:#f1dcb8!important}[dir=rtl] .nav button.active{background:linear-gradient(270deg,#d3ad762b,#d3ad7608)!important}
+.nav button.active .ic{background:linear-gradient(135deg,#f1dcb8,#c79d64);border-color:#f1dcb8;box-shadow:0 4px 14px -4px #d3ad76aa}.nav button.active .ic svg{stroke:#20160c}
+.nav button.active::after{content:"";position:absolute;inset-inline-end:12px;width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.quote{background:linear-gradient(145deg,#1d1712,#121010);border-color:#4b3925!important;font-family:Georgia,serif;font-style:italic;position:relative}.quote::before{content:"❝";display:block;font-size:22px;line-height:1;color:#8a6a42;font-style:normal;margin-bottom:4px}
+@media(max-width:800px){.navgrp{display:contents}.glabel{display:none}.ornament{display:none}.nav button{flex:none}.nav button .lb{white-space:nowrap}.nav button.active::after{display:none}aside::after{display:none}}
+</style>`);
+renderNav();
