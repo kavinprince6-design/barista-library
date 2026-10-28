@@ -51,9 +51,48 @@ mark{background:#d3ad7655;color:var(--cream);border-radius:3px;padding:0 2px}
 .lock{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 50% 30%,#2a2015,#0d0c0b);display:none;align-items:center;justify-content:center;padding:20px}.lock.open{display:flex}.lock .box{max-width:360px;width:100%;text-align:center}.lock img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);padding:3px}
 .installsteps{margin:6px 0 0;padding-inline-start:20px;font-size:13.5px;color:#e2d4c0}
 @media(max-width:800px){.layout{grid-template-columns:1fr}aside{border-inline-end:0;border-bottom:1px solid var(--line);padding:12px;position:static;height:auto;padding-top:max(12px,env(safe-area-inset-top))}.profile{display:flex;align-items:center;gap:12px;text-align:start;padding:4px 8px 12px}.avatar{width:58px;height:58px}.profile p{margin-top:2px}.nav{display:flex;overflow-x:auto}.nav button{width:auto;white-space:nowrap}.quote{display:none}.hero{min-height:140px;padding:20px}.welcome{grid-template-columns:1fr}.content{padding:14px}.tabs{display:none}.cols2{grid-template-columns:1fr}.modal{padding:0}.sheet{border-radius:0;min-height:100vh}}
+
+/* ===== motion & luxury details ===== */
+.hero{background:none!important;position:relative;isolation:isolate;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-6%;z-index:-2;background:linear-gradient(100deg,#17110cdd,#17110c88),url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=1800&q=85') center/cover;animation:kenburns 32s ease-in-out infinite alternate;transform:translate(var(--px,0),var(--py,0));transition:transform .8s ease-out}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 15% 120%,#d3ad7626,transparent 55%);pointer-events:none}
+@keyframes kenburns{from{transform:scale(1) translate(var(--px,0),var(--py,0))}to{transform:scale(1.08) translate(calc(var(--px,0px) - 1.5%),calc(var(--py,0px) - 1%))}}
+.brand{display:flex;align-items:flex-end;gap:14px}
+.hero h1{background:linear-gradient(100deg,#c79d64 0%,#e4c396 30%,#fff3dc 45%,#e4c396 60%,#c79d64 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s ease-in-out infinite}
+@keyframes shine{0%,15%{background-position:100% 0}60%,100%{background-position:-50% 0}}
+.hero .eyebrow{animation:track 1.6s cubic-bezier(.2,.7,.2,1) both}.hero p{animation:fadeUp 1s .4s both}
+@keyframes track{from{letter-spacing:9px;opacity:0}to{letter-spacing:3px;opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.cup{width:58px;height:62px;flex:none;margin-bottom:6px;overflow:visible}
+.cup .st{fill:none;stroke:#e4c396;stroke-width:2;stroke-linecap:round;opacity:0;animation:steam 3.6s ease-in-out infinite}
+.cup .st:nth-child(2){animation-delay:1.2s}.cup .st:nth-child(3){animation-delay:2.4s}
+@keyframes steam{0%{opacity:0;transform:translateY(8px) scaleY(.8)}30%{opacity:.75}100%{opacity:0;transform:translateY(-14px) scaleY(1.15)}}
+.welcome-banner{position:relative;overflow:hidden}.welcome-banner>*{position:relative;z-index:1}
+.beans{position:absolute;inset:0;z-index:0!important;pointer-events:none}.beans i{position:absolute;width:14px;height:20px;border-radius:50%;background:#d3ad76;opacity:.14;animation:drift 14s ease-in-out infinite}
+.beans i::after{content:"";position:absolute;inset:3px 6px;border-inline-start:2px solid #0d0c0b;border-radius:50%}
+.beans i:nth-child(1){inset-inline-end:8%;top:18%;transform:rotate(25deg)}.beans i:nth-child(2){inset-inline-end:22%;top:62%;animation-delay:-4s;transform:rotate(-30deg) scale(.8)}.beans i:nth-child(3){inset-inline-end:38%;top:12%;animation-delay:-8s;transform:rotate(60deg) scale(.7)}.beans i:nth-child(4){inset-inline-end:14%;top:78%;animation-delay:-2s;transform:rotate(10deg) scale(1.1)}.beans i:nth-child(5){inset-inline-end:31%;top:40%;animation-delay:-11s;transform:rotate(-55deg) scale(.6)}
+@keyframes drift{0%,100%{translate:0 0;rotate:0deg}50%{translate:-10px -14px;rotate:25deg}}
+.section h2{position:relative;padding-bottom:6px}.section h2::after{content:"";position:absolute;inset-inline-start:0;bottom:0;height:2px;width:46px;background:linear-gradient(90deg,var(--gold),transparent)}
+.section.enter h2::after{animation:line .9s .1s cubic-bezier(.2,.7,.2,1) both}@keyframes line{from{width:0}to{width:46px}}
+.section.enter .grid>*,.section.enter .box,.section.enter h3.sub{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.section.enter .grid>*:nth-child(2){animation-delay:.05s}.section.enter .grid>*:nth-child(3){animation-delay:.1s}.section.enter .grid>*:nth-child(4){animation-delay:.15s}.section.enter .grid>*:nth-child(5){animation-delay:.2s}.section.enter .grid>*:nth-child(6){animation-delay:.25s}.section.enter .grid>*:nth-child(n+7){animation-delay:.3s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stat b{animation:fadeUp .8s both}.stat:nth-child(2) b{animation-delay:.1s}.stat:nth-child(3) b{animation-delay:.2s}.stat:nth-child(4) b{animation-delay:.3s}
+.card{position:relative;overflow:hidden}.card::after{content:"";position:absolute;top:0;bottom:0;width:60%;left:-80%;background:linear-gradient(105deg,transparent,#ffffff10 45%,#d3ad7618 50%,transparent 60%);pointer-events:none;transition:left .9s ease}.card:hover::after{left:120%}
+.card:hover{border-color:#6a5136;box-shadow:0 10px 30px -18px #d3ad7680}
+.thumb img{transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}.rcard:hover .thumb img{transform:scale(1.06)}
+.btn.primary{background:linear-gradient(100deg,#c79d64,#e4c396 45%,#d3ad76);background-size:200% 100%;transition:background-position .6s}.btn.primary:hover{background-position:100% 0}
+.quote{transition:opacity .6s,transform .6s}.quote.qout{opacity:0;transform:translateY(6px)}
+.nav button{transition:background .25s,color .25s,border-color .25s}.nav button.active{box-shadow:inset 3px 0 0 var(--gold)}[dir=rtl] .nav button.active{box-shadow:inset -3px 0 0 var(--gold)}
+.avatar{animation:glow 4s ease-in-out infinite}@keyframes glow{0%,100%{box-shadow:0 0 0 0 #d3ad7600}50%{box-shadow:0 0 22px 2px #d3ad7640}}
+.splash{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#2a2015,#0d0c0b 70%);transition:opacity .8s,visibility .8s}.splash.hide{opacity:0;visibility:hidden}
+.splash .inner{text-align:center}.splash svg{width:84px;height:90px;overflow:visible}.splash .sname{font-family:Georgia,serif;font-size:40px;color:#e4c396;letter-spacing:6px;animation:track 1.4s cubic-bezier(.2,.7,.2,1) both}.splash .sline{height:1px;width:0;margin:10px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:sline 1.2s .3s both}@keyframes sline{to{width:160px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero h1{color:#e4c396;background:none}}
+@media(max-width:800px){.cup{width:42px;height:46px}}
 </style>
 </head>
 <body>
+<div class="splash" id="splash" aria-hidden="true"><div class="inner"><svg class="cup" viewBox="0 0 60 64" aria-hidden="true"><g><path class="st" d="M20 22c-4-5 4-8 0-14"/><path class="st" d="M30 22c-4-5 4-8 0-14"/><path class="st" d="M40 22c-4-5 4-8 0-14"/></g><path d="M10 28h36v10a18 18 0 0 1-18 18h0A18 18 0 0 1 10 38z" fill="none" stroke="#d3ad76" stroke-width="2.2"/><path d="M46 32h4a6 6 0 0 1 0 12h-5" fill="none" stroke="#d3ad76" stroke-width="2.2"/><path d="M4 60h50" stroke="#d3ad76" stroke-width="2.2" stroke-linecap="round"/></svg><div class="sname">BARISTA</div><div class="sline"></div></div></div>
 <div class="layout">
 <aside>
   <div class="profile"><img class="avatar" id="sideAvatar" src="profile.jpg" alt=""><div><h3 id="sideName">Barista</h3><p id="sideTag">Specialty Coffee & Drinks</p></div></div>
@@ -61,11 +100,11 @@ mark{background:#d3ad7655;color:var(--cream);border-radius:3px;padding:0 2px}
   <div class="quote">“Good coffee is not just a drink — it's a craft.”</div>
 </aside>
 <main>
-<header class="hero"><div><div class="eyebrow">SPECIALTY COFFEE · BARISTA · BARTENDER</div><h1>Barista | باريستا</h1><p data-i="heroSub"></p></div>
+<header class="hero"><div><div class="eyebrow">SPECIALTY COFFEE · BARISTA · BARTENDER</div><div class="brand"><h1>Barista | باريستا</h1><svg class="cup" viewBox="0 0 60 64" aria-hidden="true"><g><path class="st" d="M20 22c-4-5 4-8 0-14"/><path class="st" d="M30 22c-4-5 4-8 0-14"/><path class="st" d="M40 22c-4-5 4-8 0-14"/></g><path d="M10 28h36v10a18 18 0 0 1-18 18h0A18 18 0 0 1 10 38z" fill="none" stroke="#d3ad76" stroke-width="2.2"/><path d="M46 32h4a6 6 0 0 1 0 12h-5" fill="none" stroke="#d3ad76" stroke-width="2.2"/><path d="M4 60h50" stroke="#d3ad76" stroke-width="2.2" stroke-linecap="round"/></svg></div><p data-i="heroSub"></p></div>
 <div class="hero-tools"><span class="saveState" id="saveState"></span><button class="pill" id="editBtn" style="display:none"></button><button class="pill" id="langBtn"></button><button class="userchip" data-tab="account"><span class="ava" id="chipAva"></span><span style="text-align:start"><small id="chipHint"></small><b id="chipName"></b></span></button></div></header>
 <div class="content">
 <div class="welcome">
-  <div class="welcome-banner"><div class="eyebrow">YOUR PERSONAL LIBRARY</div><h2 id="welcomeTitle"></h2><p data-i="welcomeSub"></p></div>
+  <div class="welcome-banner"><div class="beans" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div class="eyebrow">YOUR PERSONAL LIBRARY</div><h2 id="welcomeTitle"></h2><p data-i="welcomeSub"></p></div>
   <div class="stats"><div class="stat"><b id="libCount">0</b><span data-i="stLib"></span></div><div class="stat"><b id="recipeCount">0</b><span data-i="stMine"></span></div><div class="stat"><b id="favCount">0</b><span data-i="stFav"></span></div><div class="stat"><b id="lessonCount">0</b><span data-i="stLessons"></span></div></div>
 </div>
 <div class="tabs" id="topTabs"></div>
@@ -239,5 +278,6 @@ mark{background:#d3ad7655;color:var(--cream);border-radius:3px;padding:0 2px}
 <input type="file" id="importFile" accept="application/json,.json" style="display:none">
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="motion.js"></script>
 </body>
 </html>
