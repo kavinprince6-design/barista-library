@@ -42,15 +42,15 @@ export async function onRequestPost({ request, env }) {
   const models = env.GEMINI_MODEL ? [env.GEMINI_MODEL, ...MODELS] : MODELS;
   let lastStatus = 500, lastErr = "";
   for (const model of models) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: system }] },
-        contents,
-        generationConfig: { temperature: 0.6, maxOutputTokens: 1200 }
-      })
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+    const payload = JSON.stringify({
+      systemInstruction: { parts: [{ text: system }] },
+      contents,
+      generationConfig: { temperature: 0.6, maxOutputTokens: 1200 }
     });
+    let r = await fetch(url, { method: "POST", headers: { "content-type": "application/json", "x-goog-api-key": key }, body: payload });
+    // some newer "AQ." keys are only accepted as a query parameter — retry once that way
+    if (r.status === 401 || r.status === 403) r = await fetch(url + "?key=" + encodeURIComponent(key), { method: "POST", headers: { "content-type": "application/json" }, body: payload });
     if (r.ok) {
       const data = await r.json();
       const text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
