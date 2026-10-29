@@ -70,14 +70,6 @@ body[data-beans=none] .beanpile{display:none}
 .bstyle .pv{height:86px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 30%,#2a1d13,#0d0c0b)}.bstyle .pv .bn{animation:none}
 .bstyle .tt{display:block;padding:8px 12px 10px}.bstyle .tt b{display:block;font-size:13px;color:#f1dcb8}.bstyle .tt small{color:var(--muted);font-size:11px;line-height:1.35;display:block}
 .bstyle.on .tt b::after{content:" ✓";color:var(--gold)}
-
-/* sign-in & splash: visible motion */
-body:not([data-beans=frame]) .beanlocal .bn{top:-12%!important;animation:bnrain calc(var(--d) * .42) linear var(--dl) infinite}
-@keyframes bnrain{0%{transform:translate(0,-6vh) rotate(var(--r))}25%{transform:translate(calc(var(--dx) * .6),26vh) rotate(calc(var(--r) + var(--rr) * 2))}50%{transform:translate(calc(var(--dx) * -.4),56vh) rotate(calc(var(--r) + var(--rr) * 4))}75%{transform:translate(calc(var(--dx) * .5),86vh) rotate(calc(var(--r) + var(--rr) * 6))}100%{transform:translate(0,122vh) rotate(calc(var(--r) + var(--rr) * 8))}}
-body[data-beans=frame] .beanlocal .bn{animation:bnbob calc(var(--d) * .25) ease-in-out var(--dl) infinite alternate}
-@keyframes bnbob{from{transform:translate(0,0) rotate(var(--r))}to{transform:translate(calc(var(--dx) * 1.6 + 6px),calc(var(--dy) * 1.6 - 10px)) rotate(calc(var(--r) + var(--rr) * 3))}}
-body[data-beans=pattern] .beanlocal{animation:patmove 40s linear infinite}@keyframes patmove{to{background-position:140px 280px}}
-@media(prefers-reduced-motion:reduce){body:not([data-beans=frame]) .beanlocal .bn{animation:bnrain calc(var(--d) * 1.2) linear var(--dl) infinite!important}body[data-beans=frame] .beanlocal .bn{animation:bnbob calc(var(--d) * .6) ease-in-out var(--dl) infinite alternate!important}}
 .welcome-banner .beans{display:none}
 .rcard,.dotd,.pantry,.lock .box{backdrop-filter:none}.tabs button{background:#211c17d9}.chips button{background:#16120ee0}
 .section-head h2{display:flex;align-items:center;gap:10px}.section-head h2::before{content:"";width:16px;height:22px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 56%27%3E%3Cellipse cx=%2720%27 cy=%2728%27 rx=%2717%27 ry=%2725%27 fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%272.4%27/%3E%3Cpath d=%27M20 5c-7 6 7 13 0 23s7 17 0 23%27 fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(-25deg);filter:drop-shadow(0 0 6px #d3ad7666)}

@@ -1,5 +1,5 @@
 /* Barista service worker: network-first for app files (so updates show), cache fallback offline. */
-const CACHE="barista-v14";
+const CACHE="barista-v15";
 const SHELL=["./","index.html","app.js","data.js","motion.js","features.js","beans.js","profile.jpg","manifest.webmanifest","icons/icon-192.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
