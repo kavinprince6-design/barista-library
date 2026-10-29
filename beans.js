@@ -30,13 +30,13 @@ const STYLES={
   lock:n=>edgeField(n*3,{min:18,max:44,drift:10,op:[.6,1],depth:22})+edgeField(n/3,{min:16,max:26,drift:10,op:[.5,.85],depth:20,gold:true})},
  pattern:{bg:()=>"",lock:()=>""},
  none:{bg:()=>"",lock:()=>""}};
-const BEAN_STYLES=[["classic",A("كلاسيكي عائم","Floating classic"),A("حبوب قهوة بثلاث طبقات عمق تطفو ببطء","Three depths of beans drifting slowly")],["frame",A("إطار البن","Bean frame"),A("حبوب كثيفة على الأطراف ووسط نظيف","Dense beans around the edges, clean centre")],["gold",A("ذهبي فاخر","Gold line"),A("حبوب برسم خطي ذهبي، أنيقة وهادئة","Gold line-art beans, calm and elegant")],["pattern",A("نقش فاخر","Luxury pattern"),A("نقش حبوب ثابت مثل ورق الجدران الفاخر","A still bean motif like luxury wallpaper")],["none",A("بسيط","Minimal"),A("بدون حبوب في الخلفية","No beans in the background")]];
+const BEAN_STYLES=[["classic",A("كلاسيكي عائم","Floating classic"),A("حبوب قهوة بثلاث طبقات عمق تطفو ببطء","Three depths of beans drifting slowly")],["frame",A("إطار البن","Bean frame"),A("حبوب كثيفة على الأطراف ووسط نظيف","Dense beans around the edges, clean centre")],["gold",A("ذهبي فاخر","Gold line"),A("حبوب برسم خطي ذهبي، أنيقة وهادئة","Gold line-art beans, calm and elegant")],["pattern",A("نقش فاخر","Luxury pattern"),A("نقش حبوب ثابت مثل ورق الجدران الفاخر","A still bean motif like luxury wallpaper")],["none",A("بسيط","Minimal"),A("بدون حبوب في شاشة الدخول","No beans on the sign-in screen")]];
 let beanStyle="classic";try{beanStyle=localStorage.getItem("bb_beans")||"classic"}catch(e){}
 document.body.insertAdjacentHTML("afterbegin",`<div class="beanfield" aria-hidden="true"></div>`);
 const lock=document.getElementById("lock");if(lock)lock.insertAdjacentHTML("afterbegin",`<div class="beanlocal" aria-hidden="true"></div>`);
 const sp=document.getElementById("splash");if(sp)sp.insertAdjacentHTML("afterbegin",`<div class="beanlocal" aria-hidden="true"></div>`);
 function applyBeans(st){if(!STYLES[st])st="classic";beanStyle=st;seed=1425;document.body.dataset.beans=st;const S_=STYLES[st];
- document.querySelector(".beanfield").innerHTML=S_.bg();document.querySelectorAll(".lock .beanlocal,.splash .beanlocal").forEach((el,i)=>el.innerHTML=S_.lock(small?(i?26:30):(i?32:40)));
+ document.querySelector(".beanfield").innerHTML="";document.querySelectorAll(".lock .beanlocal,.splash .beanlocal").forEach((el,i)=>el.innerHTML=S_.lock(small?(i?26:30):(i?32:40)));
  layers=[...document.querySelectorAll(".beanfield .bl")];upd()}
 let layers=[];
 /* 3) header: gold beans gently falling past the wordmark */
@@ -61,7 +61,7 @@ body{background:radial-gradient(1200px 700px at 70% -10%,#2a1d13 0%,transparent 
 @keyframes bnfall{0%{transform:translateY(-40px) rotate(var(--r));opacity:0}10%{opacity:.8}85%{opacity:.6}100%{transform:translateY(340px) rotate(calc(var(--r) + var(--rr)));opacity:0}}
 aside{position:sticky}.beanpile{position:relative;height:58px;margin-top:6px;flex:none}.bn.still{animation:none}
 
-body[data-beans=pattern] .beanfield,body[data-beans=pattern] .beanlocal{background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27140%27 height=%27140%27 viewBox=%270 0 140 140%27%3E%3Cg fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%271.3%27 stroke-linecap=%27round%27%3E%3Cg transform=%27translate(30 30) rotate(-30)%27%3E%3Cellipse rx=%279%27 ry=%2713%27/%3E%3Cpath d=%27M0 -13c-4 3 4 7 0 13s4 9 0 13%27/%3E%3C/g%3E%3Cg transform=%27translate(100 95) rotate(35)%27%3E%3Cellipse rx=%279%27 ry=%2713%27/%3E%3Cpath d=%27M0 -13c-4 3 4 7 0 13s4 9 0 13%27/%3E%3C/g%3E%3Cpath d=%27M100 30l3 -3l3 3l-3 3z M30 100l3 -3l3 3l-3 3z%27/%3E%3C/g%3E%3C/svg%3E") 0 0/140px 140px;opacity:.16}
+body[data-beans=pattern] .beanlocal{background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27140%27 height=%27140%27 viewBox=%270 0 140 140%27%3E%3Cg fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%271.3%27 stroke-linecap=%27round%27%3E%3Cg transform=%27translate(30 30) rotate(-30)%27%3E%3Cellipse rx=%279%27 ry=%2713%27/%3E%3Cpath d=%27M0 -13c-4 3 4 7 0 13s4 9 0 13%27/%3E%3C/g%3E%3Cg transform=%27translate(100 95) rotate(35)%27%3E%3Cellipse rx=%279%27 ry=%2713%27/%3E%3Cpath d=%27M0 -13c-4 3 4 7 0 13s4 9 0 13%27/%3E%3C/g%3E%3Cpath d=%27M100 30l3 -3l3 3l-3 3z M30 100l3 -3l3 3l-3 3z%27/%3E%3C/g%3E%3C/svg%3E") 0 0/140px 140px;opacity:.16}
 body[data-beans=pattern] .lock .beanlocal{opacity:.28}
 body[data-beans=none] .beanpile{display:none}
 .bstyles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
@@ -71,7 +71,7 @@ body[data-beans=none] .beanpile{display:none}
 .bstyle .tt{display:block;padding:8px 12px 10px}.bstyle .tt b{display:block;font-size:13px;color:#f1dcb8}.bstyle .tt small{color:var(--muted);font-size:11px;line-height:1.35;display:block}
 .bstyle.on .tt b::after{content:" ✓";color:var(--gold)}
 .welcome-banner .beans{display:none}
-.stat,.card,.box{background:linear-gradient(145deg,#211a14d0,#141110dc)!important;backdrop-filter:blur(2.5px);-webkit-backdrop-filter:blur(2.5px)}.rcard,.dotd,.pantry,.lock .box{backdrop-filter:none}.tabs button{background:#211c17d9}.chips button{background:#16120ee0}
+.rcard,.dotd,.pantry,.lock .box{backdrop-filter:none}.tabs button{background:#211c17d9}.chips button{background:#16120ee0}
 .section-head h2{display:flex;align-items:center;gap:10px}.section-head h2::before{content:"";width:16px;height:22px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 56%27%3E%3Cellipse cx=%2720%27 cy=%2728%27 rx=%2717%27 ry=%2725%27 fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%272.4%27/%3E%3Cpath d=%27M20 5c-7 6 7 13 0 23s7 17 0 23%27 fill=%27none%27 stroke=%27%23d3ad76%27 stroke-width=%272.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(-25deg);filter:drop-shadow(0 0 6px #d3ad7666)}
 .ornament b{font-size:0}.ornament b::before{content:"";display:inline-block;width:12px;height:17px;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 56%27%3E%3Cellipse cx=%2720%27 cy=%2728%27 rx=%2717%27 ry=%2725%27 fill=%27%23d3ad76%27/%3E%3Cpath d=%27M20 5c-7 6 7 13 0 23s7 17 0 23%27 fill=%27none%27 stroke=%27%231a120c%27 stroke-width=%273.4%27 stroke-linecap=%27round%27/%3E%3C/svg%3E") center/contain no-repeat;transform:rotate(30deg)}
 @media(max-width:800px){.beanpile{display:none}}
@@ -85,7 +85,7 @@ if(!reduce){let ticking=false;
  window.addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(upd2)}},{passive:true});
  if(window.matchMedia("(pointer:fine)").matches)window.addEventListener("mousemove",e=>{const cx=e.clientX/window.innerWidth-.5,cy=e.clientY/window.innerHeight-.5;layers.forEach((l,i)=>{l.style.translate=`${-cx*(i+1)*8}px ${-cy*(i+1)*6}px`})},{passive:true})}
 
-Object.assign(L.ar,{beanTitle:"نمط حبوب القهوة"});Object.assign(L.en,{beanTitle:"Coffee bean style"});
+Object.assign(L.ar,{beanTitle:"نمط حبوب القهوة في شاشة الدخول"});Object.assign(L.en,{beanTitle:"Sign-in screen bean style"});
 function preview(st){seed=777;const old=small;let h="";if(st==="classic")h=field(14,{min:8,max:16,drift:0,op:[.4,.8]})+field(3,{min:8,max:12,drift:0,op:[.5,.7],gold:true});else if(st==="gold")h=field(12,{min:8,max:14,drift:0,op:[.35,.7],gold:true});else if(st==="frame")h=edgeField(40,{min:8,max:16,drift:0,op:[.6,1],depth:16});
  return`<div class="pv" ${st==="pattern"?`style="background:url('${getComputedStyle(document.body).getPropertyValue("--pat")||""}')"`:""}>${st==="pattern"?`<div class="beanlocal" style="background:inherit"></div>`:""}${h}</div>`}
 const _ra=renderAccount;renderAccount=async function(){await _ra();const host=$("#accountBody");if(!host)return;
